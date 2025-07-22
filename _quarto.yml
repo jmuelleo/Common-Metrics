@@ -13,17 +13,17 @@ website:
       - section: "MacroShift"   
         contents:
           - text: "MacroShift - Anticipating Recessions. Allocating with Precision."
-            href: 
+            href: index.qmd
       - section: "Blog Posts"
-        contents:
+        contents: index.qmd
           - text: "Regularisation Methods"   
-            href: 
+            href: index.qmd
       - section: "Replication Projects"
-        contents:
+        contents: index.qmd
           - text: "History's Masters 2025" 
-            href: 
+            href: index.qmd
           - text: "Card and Krueger 1994"
-            href: 
+            href: index.qmd
   navbar:
     logo: "images/Logo2.png"  # Logo in der Navbar
     background: primary
@@ -34,7 +34,7 @@ website:
       - text: "About Me" 
         href: AboutMe.qmd
       - text: "Recent Posts"
-        href:  
+        href: index.qmd
        
 format:
   html:
