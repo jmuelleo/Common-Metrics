@@ -34,7 +34,7 @@ website:
       - text: "About Me" 
         href: AboutMe.qmd
       - text: "Recent Posts"
-        href: Post_Navigator.qmd   
+        href:  
        
 format:
   html:
