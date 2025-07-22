@@ -1,21 +1,43 @@
 project:
-  type: website
-
+  type: website   
+  output-dir: docs  
+ 
 website:
-  title: "Common Metrics"
+  title: ""  # Titel der Website
+  sidebar:
+    collapse-level: 1
+    style: docked  # Fest angeheftete Sidebar
+    pinned: false
+    contents:
+      - text: "<strong>Post Navigator</strong>"
+      - section: "MacroShift"   
+        contents:
+          - text: "MacroShift - Anticipating Recessions. Allocating with Precision."
+            href: Google_Trends.qmd
+      - section: "Blog Posts"
+        contents:
+          - text: "Regularisation Methods"   
+            href: History_Master.qmd 
+      - section: "Replication Projects"
+        contents:
+          - text: "History's Masters 2025" 
+            href: BIP_Forecast.qmd
+          - text: "Card and Krueger 1994"
+            href: Deutsche_Rente.qmd
   navbar:
+    logo: "images/Logo2.png"  # Logo in der Navbar
+    background: primary
+    search: true
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
+      - text: "Start"
+        href: about.qmd              
+      - text: "About me" 
+        href: Über_mich.qmd
+      - text: "Recent Posts"
+        href: Post_Navigator.qmd   
+       
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
-    toc: true
-
-editor: visual
-
+    theme: cerulean
+    css: styles.css  # Benutzerdefinierte CSS-Datei
+    toc: true  # Inhaltsverzeichnis aktivieren 
