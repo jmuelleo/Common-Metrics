@@ -1,1 +1,10 @@
 /* css styles */
+/* css styles */
+.columns {
+  max-width: 100% !important;
+}
+
+.navbar-brand img {
+  height: 60px !important;
+  max-height: none !important;
+}
