@@ -15,11 +15,11 @@ website:
           - text: "MacroShift - Anticipating Recessions. Allocating with Precision."
             href: index.qmd
       - section: "Blog Posts"
-        contents: index.qmd
+        contents: 
           - text: "Regularisation Methods"   
             href: index.qmd
       - section: "Replication Projects"
-        contents: index.qmd
+        contents: 
           - text: "History's Masters 2025" 
             href: index.qmd
           - text: "Card and Krueger 1994"
