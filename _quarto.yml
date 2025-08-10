@@ -12,18 +12,18 @@ website:
       - text: "<strong>Post Navigator</strong>"
       - section: "MacroShift"   
         contents:
-          - text: "MacroShift - Anticipating Recessions. Allocating with Precision."
+          - text: "MacroShift - Underlying Theory"
             href: index.qmd
-      - section: "Blog Posts"
-        contents: 
-          - text: "Regularisation Methods"   
-            href: index.qmd
-      - section: "Replication Projects"
-        contents: 
-          - text: "History's Masters 2025" 
-            href: index.qmd
-          - text: "Card and Krueger 1994"
-            href: index.qmd
+  #    - section: "Blog Posts"
+  #      contents: 
+  #        - text: "Regularisation Methods"   
+  #          href: index.qmd
+  #    - section: "Replication Projects"
+  #      contents: 
+  #        - text: "History's Masters 2025" 
+  #          href: index.qmd
+  #        - text: "Card and Krueger 1994"
+  #          href: index.qmd
   navbar:
     logo: "images/Logo2.png"  # Logo in der Navbar
     background: primary
@@ -33,8 +33,8 @@ website:
         href: index.qmd              
       - text: "About Me" 
         href: AboutMe.qmd
-      - text: "Recent Posts"
-        href: index.qmd
+  #   - text: "Recent Posts"
+  #      href: index.qmd
        
 format:
   html:
