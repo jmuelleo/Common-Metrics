@@ -13,7 +13,7 @@ website:
       - section: "MacroShift"   
         contents:
           - text: "MacroShift - Underlying Theory"
-            href: index.qmd
+            href: MacroShift_Theory.qmd
   #    - section: "Blog Posts"
   #      contents: 
   #        - text: "Regularisation Methods"   

@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "AboutMe.html",
+    "href": "AboutMe.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Hello, my name is Julian Müller, I am 20 years old. I was born on the 21.08.2004 in California, but lived since my third birthday in Germany. I love to do sports, if possible I try to train four to five times a week. Furthermore I enjoy reading classics like Dostojewski or Homer. I studied economics at the University of Mannheim with a focus on econometrics and statistics. My elective courses included Analysis B, Analysis C, Applied Multivariate Statistics, Markov Chains, Resampling Methods, Time Series and Forecasting, Statistical Learning Methods.\nFurthermore I wrote a Seminar Paper in Applied Econometrics about Predictions with Many Regressors and Big Data. The Seminar Paper compares various prediction models within a big data context. The challenge of having too much data to achieve good predictions is a relatively modern problem, and several approaches have been developed to address it. The Paper compared some of these approaches, including shrinkage estimators, which received particular attention and a principal components based OLS Regression.\nMy Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” addresses two main objectives. First, it presents a systematic overview of the theory behind Markov-Switching models, focusing on applying the Expectation-Maximization (EM) algorithm to a broad class of Markov-Switching Autoregressive (AR) processes. Second, the thesis introduces MSARM, a new R package for estimating such models. Results from approximately 300 simulations show that MSARM’s estimation algorithm is more robust than MSwM’s, especially in more generalized settings where MSwM often fails. MSARM can be installed with the command: devtools::install github(”jmuelleo/MSARM”).\nThe University of Mannheim is in the QS Ranking 2024 rank 2 in Economics & Econometrics and could even say:\n“In this category, the University of Mannheim was evaluated in seven different areas. It was particularly successful in the area Accounting & Finance, where it ranked first in Germany. In Business & Management Studies and Economics & Econometrics it ranked second. Overall, Mannheim is hence the best-ranked German university in business and economics.”\nSee: https://www.uni-mannheim.de/en/newsroom/presse/pressemitteilungen/2024/april/qs-ranking-1/\nYou can reach me via common.metrics.contact@gmail.com\nMy CV can be downloaded via the following link:\n 📄 Download CV \nYou can find my Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” here:\n 📄 Download Bachelor Thesis  \nYou can find my Seminar Paper “Predictions with Many Regressors and Big Data” here:\n 📄 Download Seminar Paper"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Common Metrics",
@@ -8,21 +15,7 @@
     "crumbs": [
       "Start",
       "MacroShift",
-      "MacroShift - Anticipating Recessions. Allocating with Precision."
+      "MacroShift - Underlying Theory"
     ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "AboutMe.html",
-    "href": "AboutMe.html",
-    "title": "About Me",
-    "section": "",
-    "text": "Hello, my name is Julian Müller, I am 20 years old. I was born on the 21.08.2004 in California, but lived since my third birthday in Germany. I love to do sports, if possible I try to train four to five times a week. Furthermore I enjoy reading classics like Dostojewski or Homer. I studied economics at the University of Mannheim with a focus on econometrics and statistics. My elective courses included Analysis B, Analysis C, Applied Multivariate Statistics, Markov Chains, Resampling Methods, Time Series and Forecasting, Statistical Learning Methods.\nFurthermore I wrote a Seminar Paper in Applied Econometrics about Predictions with Many Regressors and Big Data. The Seminar Paper compares various prediction models within a big data context. The challenge of having too much data to achieve good predictions is a relatively modern problem, and several approaches have been developed to address it. The Paper compared some of these approaches, including shrinkage estimators, which received particular attention and a principal components based OLS Regression.\nMy Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” addresses two main objectives. First, it presents a systematic overview of the theory behind Markov-Switching models, focusing on applying the Expectation-Maximization (EM) algorithm to a broad class of Markov-Switching Autoregressive (AR) processes. Second, the thesis introduces MSARM, a new R package for estimating such models. Results from approximately 300 simulations show that MSARM’s estimation algorithm is more robust than MSwM’s, especially in more generalized settings where MSwM often fails. MSARM can be installed with the command: devtools::install github(”jmuelleo/MSARM”).\nThe University of Mannheim is in the QS Ranking 2024 rank 2 in Economics & Econometrics and could even say:\n“In this category, the University of Mannheim was evaluated in seven different areas. It was particularly successful in the area Accounting & Finance, where it ranked first in Germany. In Business & Management Studies and Economics & Econometrics it ranked second. Overall, Mannheim is hence the best-ranked German university in business and economics.”\nSee: https://www.uni-mannheim.de/en/newsroom/presse/pressemitteilungen/2024/april/qs-ranking-1/\nYou can reach me via common.metrics.contact@gmail.com\nMy CV can be downloaded via the following link:\n 📄 Download CV \nYou can find my Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” here:\n 📄 Download Bachelor Thesis  \nYou can find my Seminar Paper “Predictions with Many Regressors and Big Data” here:\n 📄 Download Seminar Paper"
   }
 ]
