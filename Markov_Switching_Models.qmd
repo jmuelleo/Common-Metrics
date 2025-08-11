@@ -3,6 +3,10 @@ title: "Markov-Switching-Models"
 editor: visual
 ---
 
+
+In this blogpost I will discuss the underlying theory behind Markov-Switching models, this includes a short review of Markov-Chains, as well as an in-depth derivation of the Hamilton-Filter, the Kim-Algorithm (for smoothed inference) and the EM-Algorithm. The derivations and explanations are mostly taken from my Bachelor Thesis, which discussed these topics as well. The equation numbers are the equation numbers as they are in Bachelor Thesis, so you can find them easily in the original work. My thesis can be downloaded at the end of my "About Me" section and additionally discusses the development of my R package (MSARM) and how MSARM outperforms MSwM regarding estimation robustness.
+
+
 # Brief Remarks on Notation
 
 We start with a short discussion of the notation utilized in this paper. The density function of a continuous random variable $Y$ will be denoted as $f_Y(y)$, the conditional density function, based on another random variable $X$ will be denoted as $f_{Y|X}(y|x)$. We want to emphasize that in this notation, the subscript denotes the arguments of the density function, and the values in the parentheses denote the point at which the density function is evaluated. Furthermore we define a generalized density function for a vector of a discrete random variable $S$ and a continuous random variable $Y$ as $f_{Y,S}(y,s) = f_{Y|S}(y|s)\cdot P(S = s)$. Last but not least it should be noted that we will denote a parameter vector $\theta$ that influences the distribution of a random variable with a semicolon after the arguments in the density function's subscript. For probability functions, the parameter vector will also be denoted with a subscript. For example, for a continuous random variable $Y$, we could write $f_{Y;\theta}(y)$ or for a discrete random variable $S$, $P_{\theta}(S = s)$. It should be noted that both could be seen as functions in $\theta$.
@@ -683,3 +687,420 @@ E_{\theta}(\zeta_{t+m}|\mathcal{Y}_t = \vec{y}_t) = (\Pi')^mE_{\theta}(\zeta_t|\
 \end{equation} or alternatively: \begin{equation}
 \hat{\zeta}_{t+m|t} = (\Pi')^m \hat{\zeta}_{t|t}.
 \end{equation}
+
+
+
+
+
+
+# Appendix
+## Optimal Inference of the Regimes and Derivation of the Log-Likelihood
+The following derivation closely follows Hamilton (1994, page 693). First of all, it is essential to keep in mind that $(\hat{\zeta}_{t|t-1})_j = P_{\theta}(S_t = j|\mathcal{Y}_{t-1} = \vec{y}_{t-1})$ and $(\eta_t)_j = f_{Y_t|S_t, \mathcal{Y}_{t-1};\alpha}(y_t|j,\vec{y}_{t-1})$. Based on this we can see that:
+\begin{align*}
+\displaystyle
+    (\hat{\zeta}_{t|t-1} \odot \eta_t)_j &= P_{\theta}(S_t = j|\mathcal{Y}_{t-1} = \vec{y}_{t-1})f_{Y_t|S_t,\mathcal{Y}_{t-1};\alpha}(y_t|j,\vec{y}_{t-1}) 
+    \\&= f_{Y_t,S_t|\mathcal{Y}_{t-1};\theta}(y_t,j|\vec{y}_{t-1}).
+\end{align*}
+If we now sum over all potential values of $S_t$ we get:
+ \begin{align*}
+       \sum_{j = 1}^{N}f_{Y_t,S_t|\mathcal{Y}_{t-1};\theta}(y_t,j|\vec{y}_{t-1}) = f_{Y_t|\mathcal{Y}_{t-1};\theta}(y_t|\vec{y}_{t-1}) = \mathbf{1'}(\hat{\zeta}_{t|t-1} \odot \eta_t). 
+ \end{align*}
+Additionally it is therefore true that:
+\begin{align*}
+    \cfrac{(\hat{\zeta}_{t|t-1} \odot \eta_t)_j}{\mathbf{1'}(\hat{\zeta}_{t|t-1} \odot \eta_t)} = \cfrac{f_{Y_t,S_t|\mathcal{Y}_{t-1};\theta}(y_t,j|\vec{y}_{t-1})}{f_{Y_t|\mathcal{Y}_{t-1};\theta}(y_t|\vec{y}_{t-1})} = P_{\theta}(S_t = j|\mathcal{Y}_t = \vec{y}_{t}) = (\hat{\zeta}_{t|t})_j.
+\end{align*}
+Utilizing vectors we can write:
+ \begin{align*}
+\hat{\zeta}_{t|t} = \cfrac{(\hat{\zeta}_{t|t-1} \odot \eta_t)}{\mathbf{1'}(\hat{\zeta}_{t|t-1} \odot \eta_t)}.
+\end{align*}
+To put it as simple as possible one could say that we basically just applied Bayes Rule. Next we want to get from $(\hat{\zeta}_{t|t})_j = P_{\theta}(S_t = j|\mathcal{Y}_t = \vec{y}_{t})$ to $(\hat{\zeta}_{t+1|t})_j = P_{\theta}(S_{t+1} = j|\mathcal{Y}_t = \vec{y}_{t})$. We know from (14) that this is possible via:
+\begin{align*}
+    E_{\theta}(\zeta_{t+1}|\mathcal{Y}_t = \vec{y}_t) = \Pi'\hat{\zeta}_{t|t}.
+\end{align*}
+
+
+## Smoothed Inference over the Regimes
+The following derivation closely follows Hamilton (1994, page 700-702). First we note that $S_t$ depends on $\mathcal{Y}_{t-1}$ \textbf{only} through $S_{t-1}$ and on future observations only through $S_{t+1}$! One could say:
+\begin{align*}
+P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_T = \vec{y}_{T}) = P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_t = \vec{y}_{t}).
+\end{align*}
+
+\noindent We can show this formally:
+\begin{align*}
+\displaystyle
+P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+1} = \vec{y}_{t+1}) 
+&= P_{\theta}(S_t = j|S_{t+1} = i,Y_{t+1} = y_{t+1},\mathcal{Y}_{t} = \vec{y}_{t}) 
+\\ &= \cfrac{P_{\theta}(S_t = j,Y_{t+1} = y_{t+1}|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t})}{f_{Y_{t+1}|S_{t+1},\mathcal{Y}_t;\alpha}(y_{t+1}|i,\vec{y}_{t})}
+\\ &= \cfrac{f_{Y_{t+1}|S_t,S_{t+1},\mathcal{Y}_{t};\alpha}(y_{t+1}|j,i,\vec{y}_{t})}{f_{Y_{t+1}|S_{t+1},\mathcal{Y}_t;\alpha}(y_{t+1}|i,\vec{y}_{t})}
+ P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t})
+\\ &= \cfrac{f_{Y_{t+1}|S_{t+1},\mathcal{Y}_t;\alpha}(y_{t+1}|i,\vec{y}_{t})}{f_{Y_{t+1}|S_{t+1},\mathcal{Y}_t;\alpha}(y_{t+1}|i,\vec{y}_{t})} 
+ P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t})
+\\ &= P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t}).
+\end{align*}
+\noindent The last two steps are possible because based on (11) the distribution of $Y_{t+1}$ conditional on $S_{t+1}$ is independent of $S_{t}$. Now we can approach the derivation for $t+2$ in a similar way:
+\begin{align*}
+\displaystyle
+P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+2} = \vec{y}_{t+2}) 
+&= P_{\theta}(S_t = j|S_{t+1} = i,Y_{t+2} = y_{t+2},\mathcal{Y}_{t+1} = \vec{y}_{t+1}) 
+\\ & = \cfrac{P_{\theta}(S_t = j,Y_{t+2} = y_{t+2}|S_{t+1} = i,\mathcal{Y}_{t+1} = \vec{y}_{t+1}) }{f_{Y_{t+2}|S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2}|i,\vec{y}_{t+1})}
+\\ &= \cfrac{f_{Y_{t+2}|S_t,S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2}|j,i,\vec{y}_{t+1})}{f_{Y_{t+2}|S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2}|i,\vec{y}_{t+1})}
+ P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+1} = \vec{y}_{t+1})
+\\ &= \cfrac{f_{Y_{t+2}|S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2}|i,\vec{y}_{t+1})}{f_{Y_{t+2}|S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2}|i,\vec{y}_{t+1})} 
+ P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+1} = \vec{y}_{t+1})
+\\ &= P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+1} = \vec{y}_{t+1})
+\\ &= P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t}).
+\end{align*}
+Simplifying the fraction is possible because:
+\begin{align*}
+\displaystyle
+ f_{Y_{t+2}|S_t,S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2}|j,i,\vec{y}_{t+1})  &= \sum_{k = 1}^{N}f_{Y_{t+2},S_{t+2}|S_t, S_{t+1}, \mathcal{Y}_{t+1};\theta}(y_{t+2},k|j,i,\vec{y}_{t+1})
+\\ &= \sum_{k = 1}^{N}f_{Y_{t+2}|S_{t+2},S_t, S_{t+1}, \mathcal{Y}_{t+1};\alpha}(y_{t+2}|k,j,i,\vec{y}_{t+1}) 
+\\ & \hspace{0.5cm} \cdot P_{\theta}(S_{t+2}=k|S_{t+1} = i, S_{t} = j,\mathcal{Y}_{t+1} = \vec{y}_{t+1})
+\\ &= \sum_{k = 1}^{N}f_{Y_{t+2}|S_{t+2}, S_{t+1}, \mathcal{Y}_{t+1};\alpha}(y_{t+2}|k,i,\vec{y}_{t+1})
+\\ & \hspace{0.5cm} \cdot P_{\theta}(S_{t+2}=k|S_{t+1} = i,\mathcal{Y}_{t+1} = \vec{y}_{t+1})
+\\ &= \sum_{k = 1}^{N}f_{Y_{t+2},S_{t+2}|S_{t+1},\mathcal{Y}_{t+1};\theta}(y_{t+2},k|i,\vec{y}_{t+1})
+\\ &= f_{Y_{t+2}|S_{t+1}, \mathcal{Y}_{t+1};\theta}(y_{t+2}|i,\vec{y}_{t+1}).
+\end{align*}
+\noindent We show now by induction that this approach is generally applicable. The earlier shown cases were the start of the induction, for the induction step we can say, we choose an arbitrary, but feasible, $n$ and our induction assumption is: 
+\begin{equation}
+    P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+n} = \vec{y}_{t+n}) = P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_t = \vec{y}_{t}).
+\end{equation}
+Then it shall hold that:
+\begin{equation}
+    P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+n+1} = \vec{y}_{t+n+1}) = P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_t = \vec{y}_{t}).
+\end{equation}
+To show that we write:
+\begin{align*}
+P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+n+1} = \vec{y}_{t+n+1}) &= P_{\theta}(S_t =j|S_{t+1}=i,Y_{t+n+1} = y_{t+n+1},\mathcal{Y}_{t+n} = \vec{y}_{t+n})
+\\ &= \cfrac{f_{S_t, Y_{t+n+1}|S_{t+1}, \mathcal{Y}_{t+n};\theta}(j,y_{t+n+1}|i,\vec{y}_{t+n})}{f_{Y_{t+n+1}|S_{t+1},\mathcal{Y}_{t+n};\theta}(y_{t+n+1}|i,\vec{y}_{t+n})}
+\\ &= \cfrac{f_{Y_{t+n+1}|S_t,S_{t+1},\mathcal{Y}_{t+n};\theta}(y_{t+n+1}|j,i,\vec{y}_{t+n})}{f_{Y_{t+n+1}|S_{t+1},\mathcal{Y}_{t+n};\theta}(y_{t+n+1}|i,\vec{y}_{t+n})} 
+\\& \hspace{0.5cm} \cdot P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+n} = \vec{y}_{t+n})
+\\ &= P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_{t+n} = \vec{y}_{t+n})
+\\ &= P_{\theta}(S_t = j|S_{t+1} = i,\mathcal{Y}_t = \vec{y}_{t}).
+\end{align*}
+Thereby, the last step is just applying the induction assumption and simplifying the fraction is possible because:
+\begin{align*}
+ f_{Y_{t+n+1}|S_t, S_{t+1}, \mathcal{Y}_{t+n};\theta}(y_{t+n+1}|j,i,\vec{y}_{t+n}) &= \sum_{k = 1}^{N}f_{Y_{t+n+1},S_{t+n+1}|S_t, S_{t+1}, \mathcal{Y}_{t+n};\theta}(y_{t+n+1},k|j,i, \vec{y}_{t+n})
+\\ &= \sum_{k = 1}^{N}f_{Y_{t+n+1}|S_{t+n+1}, S_t, S_{t+1},\mathcal{Y}_{t+n};\alpha}(y_{t+n+1}|k,j,i,\vec{y}_{t+n})
+ \\& \hspace{0.5cm} \cdot P_{\theta}(S_{t+n+1} = k|S_t = j, S_{t+1} = i, \mathcal{Y}_{t+n} = \vec{y}_{t+n})
+\\ &= \sum_{k = 1}^{N}f_{Y_{t+n+1}|S_{t+n+1}, S_{t+1},\mathcal{Y}_{t+n};\alpha}(y_{t+n+1}|k,i,\vec{y}_{t+n}) 
+\\& \hspace{0.5cm} \cdot P_{\theta}(S_{t+n+1} = k| S_{t+1} = i, \mathcal{Y}_{t+n} = \vec{y}_{t+n})
+\\ &= \sum_{k = 1}^{N}f_{Y_{t+n+1},S_{t+n+1}|S_{t+1},\mathcal{Y}_{t+n};\theta}(y_{t+n+1},k|i,\vec{y}_{t+n})
+\\ &= f_{Y_{t+n+1}|S_{t+1}, \mathcal{Y}_{t+n};\theta}(y_{t+n+1}|i,\vec{y}_{t+n}).
+\end{align*}
+Once this is done it can be seen that:
+\begin{align*}
+P_{\theta}(S_{t} = j|S_{t+1} = i,\mathcal{Y}_{t+m} = \vec{y}_{t+m}) = P_{\theta}(S_{t} = j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t}).
+\end{align*}
+From this follows the original claim:
+\begin{align*}
+P_{\theta}(S_{t} =j|S_{t+1}=i,\mathcal{Y}_{T} = \vec{y}_{T}) = P_{\theta}(S_{t} = j|S_{t+1} = i, \mathcal{Y}_{t} = \vec{y}_{t}).
+\end{align*}
+Next we can see that:
+\begin{align*}
+\displaystyle
+P_{\theta}(S_{t} =j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t})
+&= \cfrac{P_{\theta}(S_{t}=j,S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}
+\\ &= \cfrac{P_{\theta}(S_{t+1} = i|S_{t}=j,\mathcal{Y}_{t} = \vec{y}_{t})P_{\theta}(S_{t}=j|\mathcal{Y}_{t} = \vec{y}_{t})}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}
+\\ &= \cfrac{P_{\theta}(S_{t+1} = i|S_{t}=j)P_{\theta}(S_{t}=j|\mathcal{Y}_{t} = \vec{y}_{t})}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}
+\\ &= \cfrac{\pi_{j,i}P_{\theta}(S_{t}=j|\mathcal{Y}_{t} = \vec{y}_t)}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}.
+\end{align*}
+From this it follows that:
+\begin{align*}
+\displaystyle
+P_{\theta}(S_{t} = j,S_{t+1} =i|\mathcal{Y}_{T} = \vec{y}_{T})
+&= P_{\theta}(S_{t+1} = i|\mathcal{Y}_{T} = \vec{y}_{T})P_{\theta}(S_{t} = j|S_{t+1} = i,\mathcal{Y}_{T}  =\vec{y}_{T})
+\\ &= P_{\theta}(S_{t+1} = i|\mathcal{Y}_{T} = \vec{y}_{T})P_{\theta}(S_{t} = j|S_{t+1} = i,\mathcal{Y}_{t} = \vec{y}_{t})
+\\ &=  P_{\theta}(S_{t+1} = i|\mathcal{Y}_{T} = \vec{y}_{T})\cfrac{\pi_{j,i}P_{\theta}(S_{t}=j|\mathcal{Y}_{t} = \vec{y}_{t})}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}.
+\end{align*}
+Therefore, the smoothed inference over $S_t$ is given by:
+\begin{align*}
+\displaystyle
+P_{\theta}(S_{t} = j|\mathcal{Y}_{T} = \vec{y}_{T})
+&= \sum_{i = 1}^{N}P_{\theta}(S_t =j,S_{t+1} = i|\mathcal{Y}_{T} = \vec{y}_{T})
+\\ &= \sum_{i = 1}^{N}P_{\theta}(S_{t+1} = i|\mathcal{Y}_{T} = \vec{y}_{T})\cfrac{\pi_{j,i}P_{\theta}(S_{t}=j|\mathcal{Y}_{t} = \vec{y}_{t})}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}
+\\ &= P_{\theta}(S_t = j|\mathcal{Y}_{t} = \vec{y}_{t})\sum_{i = 1}^{N}\cfrac{\pi_{j,i}P_{\theta}(S_{t+1}=i|\mathcal{Y}_{T} = \vec{y}_{T})}{P_{\theta}(S_{t+1} = i|\mathcal{Y}_{t} = \vec{y}_{t})}
+\\ &= P_{\theta}(S_t = j|\mathcal{Y}_{t} = \vec{y}_{t})(\pi_{j,1} ... \pi_{j,N})\begin{pmatrix}
+\cfrac{P_{\theta}(S_{t+1} = 1|\mathcal{Y}_{T} = \vec{y}_{T})}{P_{\theta}(S_{t+1} = 1|\mathcal{Y}_{t} = \vec{y}_{t})}\\
+...\\
+\cfrac{P_{\theta}(S_{t+1} = N|\mathcal{Y}_{T} = \vec{y}_{T})}{P_{\theta}(S_{t+1} = N|\mathcal{Y}_{t} = \vec{y}_{t})}
+\end{pmatrix}
+\\ &= P_{\theta}(S_{t} =j|\mathcal{Y}_{t} = \vec{y}_{t})\Pi_{j,}(\hat{\zeta}_{t+1|T} (\div) \hat{\zeta}_{t+1|t}).
+\end{align*}
+Where $\Pi_{j,}$ is the jth row of $\Pi$. For the vector of probabilities one can therefore write:
+\begin{align*}
+    \hat{\zeta}_{t|T} = \hat{\zeta}_{t|t} \odot \Pi(\hat{\zeta}_{t+1|T} (\div) \hat{\zeta}_{t+1|t}).
+\end{align*}
+This is the earlier presented formula.
+
+
+
+
+
+## EM Algorithm for Autoregressive Processes with finite lag order
+The here presented proofs for the equations (38), (39) and (40) closely follow Hamilton (1990, page 63-67). We begin with (38), then go on to (39) and finish with the proof for (40). The first, essential step for all three proofs, is to establish that the following holds:
+\begin{equation}
+\begin{aligned}
+f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m) = & f_{Y_T|Z_T;\alpha}(y_T|z_T) \cdot P_{\Pi}(S_T = s_T|S_{T-1} = s_{T-1}) \\
+& \cdot f_{Y_{T-1}|Z_{T-1};\alpha}(y_{T-1}|z_{T-1}) \cdot P_{\Pi}(S_{T-1} = s_{T-1}|S_{T-2} = s_{T-2}) \\
+& \cdot... \\
+& \cdot f_{Y_{m+1}|Z_{m+1};\alpha}(y_{m+1}|z_{m+1}) \cdot P_{\Pi}(S_{m+1} = s_{m+1}|S_m = s_m) \\
+& \cdot \rho_{s_m,...,s_1}.
+\end{aligned} 
+\end{equation}
+This can be derived in the following way:
+\begin{align*}
+\displaystyle
+&f_{Y_T|Z_T;\alpha}(y_T|z_T) \cdot P_{\Pi}(S_T = s_T|S_{T-1} = s_{T-1}) 
+\\& \cdot f_{Y_{T-1}|Z_{T-1};\alpha}(y_{T-1}|z_{T-1}) \cdot P_{\Pi}(S_{T-1} = s_{T-1}|S_{T-2} = s_{T-2})\\
+& \cdot...\\
+& \cdot f_{Y_{m+1}|Z_{m+1};\alpha}(y_{m+1}|z_{m+1}) \cdot P_{\Pi}(S_{m+1} = s_{m+1}|S_m = s_m)\\
+& \cdot \rho_{s_m,...,s_1}
+\\ &= f_{Y_T|S_T,...,S_{T-m},Y_{T-1},...,Y_{T-m};\alpha}(y_T|s_T,...,s_{T-m},y_{T-1},...,y_{T-m}) 
+ P_{\Pi}(S_T = s_T|S_{T-1} = s_{T-1})\\
+& \hspace{0.5cm} \cdot f_{Y_{T-1}|S_{T-1},...,S_{T-1-m},Y_{T-1-1},...,Y_{T-1-m};\alpha}(y_{T-1}|s_{T-1},...,s_{T-1-m},y_{T-1-1},...,y_{T-1-m}) 
+\\& \hspace{0.5cm} \cdot P_{\Pi}(S_{T-1} = s_{T-1}|S_{T-2} = s_{T-2})
+\\& \hspace{0.5cm} \cdot \dots \\
+&  \hspace{0.5cm}\cdot f_{Y_{m+2}|S_{m+2},...,S_2,Y_{m+1},...,Y_2;\alpha}(y_{m+2}|s_{m+2},...,s_2,y_{m+1},...,y_2) 
+ P_{\Pi}(S_{m+2} = s_{m+2}|S_{m+1} = s_{m+1})\\
+& \hspace{0.5cm}\cdot f_{Y_{m+1}|S_{m+1},...,S_1,Y_{m},...,Y_1;\alpha}(y_{m+1}|s_{m+1},...,s_1,y_{m},...,y_1) 
+ P_{\Pi}(S_{m+1} = s_{m+1}|S_{m} = s_{m})\\
+& \hspace{0.5cm}\cdot P_{\lambda}(S_m = s_m,...,S_1 = s_1|Y_m = y_m,...,Y_1 = y_1).
+\end{align*}
+And due to the Markov property and (12) it holds that: 
+\begin{align*}
+\displaystyle
+& f_{Y_{m+1}|S_{m+1},...,S_1,Y_{m},...,Y_1;\alpha}(y_{m+1}|s_{m+1},...,s_1,y_{m},...,y_1)
+ P_{\Pi}(S_{m+1} = s_{m+1}|S_{m} = s_{m})
+\\ &= f_{Y_{m+1}|S_{m+1},...,S_1,Y_{m},...,Y_1;\alpha}(y_{m+1}|s_{m+1},...,s_1,y_{m},...,y_1)
+ P_{\Pi}(S_{m+1} = s_{m+1}|S_{m} = s_{m},...,S_1 = s_1)
+\\ &= f_{Y_{m+1}|S_{m+1},...,S_1,Y_{m},...,Y_1;\alpha}(y_{m+1}|s_{m+1},...,s_1,y_{m},...,y_1)
+\\& \hspace{0.5cm} \cdot \ P_{\Pi}(S_{m+1} = s_{m+1}|S_{m} = s_{m},...,S_1 = s_1,Y_m = y_m,...,Y_1 = y_1)
+\\ &= f_{Y_{m+1},S_{m+1}|S_m,...,S_1,Y_m,...,Y_1;\theta}(y_{m+1},s_{m+1}|s_m,...,s_1,y_m,...,y_1).
+\end{align*}
+Logically it also holds that:
+\begin{align*}
+\displaystyle
+& f_{Y_{m+1},S_{m+1}|S_m,...,S_1,Y_m,...,Y_1;\theta}(y_{m+1},s_{m+1}|s_m,...,s_1,y_m,...,y_1) 
+\cdot P_{\lambda}(S_m = s_m,...,S_1 = s_1|Y_m = y_m,...,Y_1 = y_1)
+\\& = f_{Y_{m+1},S_{m+1},S_{m},...,S_1|Y_m,...,Y_1;\theta}(y_{m+1},s_{m+1},...,s_1|y_m,...,y_1).
+\end{align*}
+We assumed in our model formulation in 4.1 that there is a maximal autoregressive lag order $m$ such 
+that $Y_t$, depends only on $m$ lags of $Y_t$. Then it holds that:
+\begin{align*}
+&f_{Y_{m+2}|S_{m+2},...,S_2,Y_{m+1},...,Y_2;\alpha}(y_{m+2}|s_{m+2},...,s_2,y_{m+1},...,y_2) 
+ P_{\Pi}(S_{m+2} = s_{m+2}|S_{m+1} = s_{m+1})
+\\ &= f_{Y_{m+2}|S_{m+2},...,S_2,S_1,Y_{m+1},...,Y_2,Y_1;\alpha}(y_{m+2}|s_{m+2},...,s_2,s_1,y_{m+1},...,y_2,y_1) 
+ P_{\Pi}(S_{m+2} = s_{m+2}|S_{m+1} = s_{m+1})
+\\ &= f_{Y_{m+2}|S_{m+2},...,S_2,S_1,Y_{m+1},...,Y_2,Y_1;\alpha}(y_{m+2}|s_{m+2},...,s_2,s_1,y_{m+1},...,y_2,y_1)
+\\&  \hspace{0.5cm} \cdot P_{\Pi}(S_{m+2} = s_{m+2}|S_{m+1} = s_{m+1},S_m = s_m,...,S_1 = s_1,Y_{m+1} = y_{m+1},...,Y_1 = y_1)
+\\ &= f_{Y_{m+2},S_{m+2}|S_{m+1},S_m,...,S_1,Y_{m+1},Y_m,...,Y_1;\theta}(y_{m+2},s_{m+2}|s_{m+1},s_m,...,s_1,y_{m+1},y_m,...,y_1).
+\end{align*}
+And thus we can write:
+\begin{align*}
+\displaystyle
+&f_{Y_{m+2},S_{m+2}|S_{m+1},S_m,...,S_1,Y_{m+1},Y_m,...,Y_1;\theta}(y_{m+2},s_{m+2}|s_{m+1},s_m,...,s_1, y_{m+1},y_m,...,y_1) 
+\\ &\cdot f_{Y_{m+1},S_{m+1},S_{m},...,S_1|Y_m,...Y_1;\theta}(y_{m+1},s_{m+1},s_{m},...,s_1|y_m,...,y_1)
+\\ &= f_{Y_{m+2},S_{m+2}|S_{m+1},Y_{m+1},S_m,...,S_1,Y_m,...,Y_1;\theta}(y_{m+2},s_{m+2}|s_{m+1},y_{m+1},s_m,...,s_1,y_m,...,y_1) 
+\\& \hspace{0.5cm} \cdot f_{Y_{m+1},S_{m+1},S_{m},...,S_1|Y_m,...Y_1;\theta}(y_{m+1},s_{m+1},s_{m},...,s_1|y_m,...,y_1)
+\\ &= f_{Y_{m+2},S_{m+2},Y_{m+1},S_{m+1},S_m,...S_1|Y_{m},...Y_1;\theta}(y_{m+2},s_{m+2},y_{m+1},s_{m+1}, s_m,...,s_1|y_{m},...,y_1).
+\end{align*}
+We can follow this logic until $T$ and end up with:
+\begin{align*}
+\displaystyle
+& f_{Y_T|S_T,...,S_{T-m},Y_{T-1},...,Y_{T-m};\alpha}(y_T|s_T,...,s_{T-m},y_{T-1},...,y_{T-m})P_{\Pi}(S_T = s_T|S_{T-1} = s_{T-1})\\
+&\cdot f_{Y_{T-1}|S_{T-1},...,S_{T-1-m},Y_{T-1-1},...,Y_{T-1-m};\alpha}(y_{T-1}|s_{T-1},...,s_{T-1-m}, y_{T-1-1},...,y_{T-1-m})
+\\& \cdot P_{\Pi}(S_{T-1} = s_{T-1}|S_{T-2} = s_{T-2})\\
+& \cdot \dots\\
+&\cdot f_{Y_{m+2}|S_{m+2},...,S_2,Y_{m+1},...,Y_2;\alpha}(y_{m+2}|s_{m+2},...,s_2, y_{m+1},...,y_2)P_{\Pi}(S_{m+2} = s_{m+2}|S_{m+1} = s_{m+1})\\
+&\cdot f_{Y_{m+1}|S_{m+1},...,S_2,Y_{m},...,Y_1;\alpha}(y_{m+1}|s_{m+1},...,s_2,y_{m},...,y_1) P_{\Pi}(S_{m+1} = s_{m+1}|S_m = s_{m})\\
+&\cdot P_{\lambda}(S_m = s_m,...,S_1 = s_1|Y_m = y_m,...,Y_1 = y_1)
+\\ &= f_{Y_T,S_T,Y_{T-1},S_{T-1},...,Y_{m+1},S_{m+1},S_m,...,S_1|Y_m,...,Y_1;\lambda}(y_T,s_T,y_{T-1}, s_{T-1},...,y_{m+1},s_{m+1}, s_m,..., s_1| y_m,..., y_1)
+\\ &= f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m).
+\end{align*}
+
+\paragraph{Derivation of (38):} Now that this first step has been established, we can now focus on the derivation of the first equation, thereby we are closely following Hamilton (1990, page 63-65). We start with (55), it holds that:
+\begin{equation}
+\begin{aligned}
+\ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)) 
+&= \ln(f_{Y_T|Z_T;\alpha}(y_T|z_T)) 
+\\& \hspace{0.5cm} + \ln(P_{\Pi}(S_T = s_T|S_{T-1} = s_{T-1}))\\
+& \hspace{0.5cm}+ \ln(f_{Y_{T-1}|Z_{T-1};\alpha}(y_{T-1}|z_{T-1})) 
+\\& \hspace{0.5cm} + \ln(P_{\Pi}(S_{T_1} = s_{T-1}|S_{T-2} = s_{T-2}))\\
+&\hspace{0.5cm} + \dots \\
+&\hspace{0.5cm} + \ln(f_{Y_{m+1}|Z_{m+1};\alpha}(y_{m+1}|z_{m+1})) 
+\\&\hspace{0.5cm} + \ln(P_{\Pi}(S_{m+1} = s_{m+1}|S_m = s_m))\\
+&\hspace{0.5cm} + \ln(\rho_{s_m,\dots,s_1}).
+\end{aligned} 
+\end{equation}
+We remember that if we have $L(x,y)$ and $\ln(L(x,y)) = l(x,y)$, then it is true that:
+\begin{align*}
+\cfrac{\partial l(x,y)}{\partial x} = \cfrac{1}{L(x,y)}\cfrac{\partial L(x,y)}{\partial x},
+\end{align*}
+and thus
+\begin{align*}
+\cfrac{\partial L(x,y)}{\partial x} = \cfrac{\partial l(x,y)}{\partial x}L(x,y).
+\end{align*}
+We apply this now:
+\begin{align*}
+\displaystyle
+&f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m) \cfrac{\partial \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))}{\partial \pi_{i,j}} \\ &= \cfrac{\partial f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)}{\partial \pi_{i,j}},
+\end{align*}
+where: 
+\begin{align*}
+\displaystyle
+\cfrac{\partial \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))}{\partial \pi_{i,j}} = \sum_{t = m+1}^{T}\cfrac{\partial \ln(P_{\Pi}(S_t = s_t|S_{t-1} = s_{t-1}))}{\partial \pi_{i,j}}.
+\end{align*}
+One should note that:
+\begin{align*}
+\displaystyle
+\cfrac{\partial \ln(P_{\Pi}(S_t = s_t|S_{t-1} = s_{t-1}))}{\partial \pi_{i,j}} = 
+\begin{cases}
+    \cfrac{1}{\pi_{i,j}}, & \text{if $S_t =j \quad \text{and} \quad S_{t-1} = i$} \\
+    0, & \text{otherwise}
+\end{cases}.
+\end{align*}
+In the following, we will use the Kronecker delta as notation in the following way: 
+\begin{align*}
+\delta_{[A]} = 
+\begin{cases}
+    1, &\text{if A is true}\\
+    0, &\text{otherwise}
+\end{cases},
+\end{align*}
+thus:
+\begin{align*}
+\displaystyle
+\cfrac{\partial f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)}{\partial \pi_{i,j}} &= f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)\sum_{t = m+1}^{T}\cfrac{\partial \ln(P_{\Pi}(S_t = s_t|S_{t-1} = s_{t-1}))}{\partial \pi_{i,j}}
+\\ &= f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)\cfrac{1}{\pi_{i,j}}\sum_{t = m+1}^{T}\delta_{[S_t =j,S_{t-1}= i]}.
+\end{align*}
+We remember that the following holds: 
+\begin{align*}
+\displaystyle
+    Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1}) = \sum_{\vec{s}_{T}} \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m).
+\end{align*}
+Therefore, we can say:
+\begin{align*}
+\displaystyle
+\cfrac{\partial Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1})}{\partial \pi_{i,j}^{(l+1)}} &= \sum_{\vec{s}_{T}}\cfrac{\partial \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))}{\partial \pi_{i,j}^{(l+1)}}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ &= \sum_{\vec{s}_{T}}\cfrac{1}{\pi_{i,j}^{(l+1)}}\sum_{t = m+1}^{T}\delta_{[S_t = j, S_{t-1} = i]}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_l}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m).
+\end{align*}
+It is now essential to notice that:
+\begin{align*}
+\displaystyle
+\sum_{\vec{s}_{T}}\delta_{[S_t = j,S_{t-1} = i]}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+&= f_{\mathcal{Y}_{T:(m+1)},S_t, S_{t-1}|\mathcal{Y}_m;\lambda_l}(\vec{y}_{T:(m+1)},j,i)
+\\ &= P_{\lambda_l}(S_t = j, S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})
+\\& \hspace{0.5cm} \cdot f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m),
+\end{align*}
+and that therefore:
+\begin{align*}
+\displaystyle
+\cfrac{\partial Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1})}{\partial \pi_{i,j}^{(l+1)}}
+&= \sum_{\vec{s}_{T}}\cfrac{1}{\pi_{i,j}^{(l+1)}}\sum_{t = m+1}^{T}\delta_{[S_t = j, S_{t-1} = i]} f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_l}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ &=\cfrac{1}{\pi_{i,j}^{(l+1)}}\sum_{t = m+1}^{T}\sum_{\vec{s}_{T}}\delta_{[S_t = j, S_{t-1} = i]}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_l}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ &= \cfrac{1}{\pi_{i,j}^{(l+1)}}\sum_{t = m+1}^{T}P_{\lambda_l}(S_t = j,S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m).
+\end{align*}
+Under the constraint $\sum_{j = 1}^{N}\pi_{i,j} = 1$ we can now form the Lagrangian:
+\begin{align*}
+\displaystyle
+Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1}) - \mu_i(\sum_{j = 1}^{N}\pi_{i,j} - 1).
+\end{align*}
+This leads to the following first-order conditons:
+\begin{align*}
+\cfrac{\partial Q_{\lambda_{l},\vec{y}_{T}}(\lambda_{l+1})}{\partial \pi_{i,j}^{(l+1)}} = \mu_i, \quad \text{for} \quad j = 1,...,N.
+\end{align*}
+We insert our result from above:
+\begin{align*}
+\displaystyle
+& \cfrac{1}{\pi_{i,j}^{(l+1)}}\sum_{t = m+1}^{T}P_{\lambda_l}(S_t = j, S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m) = \mu_i
+\\ &\Leftrightarrow \sum_{t = m+1}^{T}P_{\lambda_l}(S_t =j,S_{t-1}=i|\mathcal{Y}_T = \vec{y}_{T}) = \cfrac{\pi_{i,j}^{(l+1)}\mu_i}{f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)}.
+\end{align*}
+We now sum over $1,...,N$, which leads to:
+\begin{align*}
+\displaystyle
+&\sum_{j = 1}^{N}\sum_{t = m+1}^{T}P_{\lambda_l}(S_t = j,S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T}) = \sum_{j = 1}^{N}\cfrac{\pi_{i,j}^{(l+1)}\mu_i}{f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)}
+\\ &\Leftrightarrow \sum_{t = m+1}^{T}P_{\lambda_l}(S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T}) = \cfrac{\mu_i}{f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)}.
+\end{align*}
+If we now insert this in the result from above we get:
+\begin{align*}
+&\sum_{t = m+1}^{T}P_{\lambda_l}(S_t =j,S_{t-1}=i|\mathcal{Y}_T = \vec{y}_{T}) = \cfrac{\pi_{i,j}^{(l+1)}\mu_i}{f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)} = \pi_{i,j}^{(l+1)}\sum_{t = m+1}^{T}P_{\lambda_l}(S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})
+\\ &\Leftrightarrow \pi_{i,j}^{(l+1)} = \cfrac{\sum_{t = m+1}^{T}P_{\lambda_l}(S_t =j,S_{t-1}=i|\mathcal{Y}_T = \vec{y}_{T})}{\sum_{t = m+1}^{T}P_{\lambda_l}(S_{t-1} = i|\mathcal{Y}_T  =\vec{y}_{T})},
+\end{align*}
+this concludes the derivation of (38).
+\paragraph{Derivation of (39):} With that, we get to the second equation. In the following we closely follow Hamilton (1990, page 65-66). Again, we start with (55), but this time we take the derivative in $\alpha$:
+\begin{align*}
+\displaystyle
+\cfrac{\partial f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)}{\partial \alpha} = f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)\sum_{t = m+1}^{T}\cfrac{\partial \ln(f_{Y_t|Z_t;\alpha}(y_t|z_t))}{\partial \alpha}.
+\end{align*} 
+It is important to note here that $f_{Y_t|Z_t;\alpha}(y_t|z_t)$ depends on $S_t$ through $Z_t$, because \\
+$Z_t = (S_t,S_{t-1},...,S_{t-m},Y_{t-1},Y_{t-2},...,Y_{t-m})$, but at most for the dates $t,...,t-m$, thus:
+\begin{align*}
+\displaystyle
+\cfrac{\partial Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1})}{\partial \alpha_{l+1}} &= \cfrac{\partial}{\partial \alpha_{l+1}}\sum_{\vec{s}_{T}}\ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ &= \sum_{\vec{s}_{T}}\cfrac{\partial \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))}{\partial \alpha_{l+1}}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ & \stackrel{\text{(56)}}{=}\sum_{\vec{s}_{T}}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)\sum_{t = m+1}^{T}\cfrac{\partial \ln(f_{Y_t|Z_t;\alpha_{l+1}}(y_t|z_t))}{\partial \alpha_{l+1}}
+\\ &= \sum_{t = m + 1}^{T}\sum_{\vec{s}_T}\cfrac{\partial \ln(f_{Y_t|Z_t;\alpha_{l+1}}(y_t|z_t))}{\partial \alpha_{l+1}}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ &= \sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}\cdots\sum_{s_{t-m} = 1}^{N}\cfrac{\partial \ln(f_{Y_t|Z_t;\alpha_{l+1}}(y_t|z_t))}{\partial \alpha_{l+1}}
+\\& \hspace{0.5cm}\cdot \left(\sum_{s_{T} = 1}^{N}\cdots\sum_{s_{t+1} = 1}^{N}\sum_{s_{t-m-1} = 1}^{N}\cdots\sum_{s_{1} = 1}^{N}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)\right)
+\\ &= \sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}\cdots\sum_{s_{t-m} = 1}^{N}\cfrac{\partial \ln(f_{Y_t|Z_t;\alpha_{l+1}}(y_t|z_t))}{\partial \alpha_{l+1}} 
+\\ & \hspace{0.5cm} \cdot P_{\lambda_l}(S_t = s_t,...,S_{t-m} = s_{t-m}|Y_T = y_T,...,Y_1 = y_1)
+\\& \hspace{0.5cm} \cdot f_{Y_T,...,Y_{m+1}|Y_m,...,Y_1;\lambda_l}(y_T,...,y_{m+1}|y_m,...,y_1).
+\end{align*}
+ These steps are possible because $f_{Y_t|Z_t;\alpha}(y_t|z_t)$ at most only depends on $S_t,...,S_{t-m}$. This leads us to the following first order condition:
+\begin{align*}
+\displaystyle
+&f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)\sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}\cdots\sum_{s_{t-m} = 1}^{N} \cfrac{\partial \ln(f_{Y_t|Z_t;\alpha_{l+1}}(y_t|z_t))}{\partial \alpha_{l+1}}
+\\& \cdot P_{\lambda_l}(S_t = s_t,S_{t-1} = s_{t-1},...,S_{t-m} = s_{t-m}|\mathcal{Y}_T = \vec{y}_{T}) = 0,
+\end{align*}
+which is equivalent to (39).
+\paragraph{Derivation of (40):} Now we can turn to equation number three, here we closely follow the derivations presented by Hamilton (1990, page 66-67). We start with (56) and take the derivative in $\rho_{i_m,...,i_1}$:
+\begin{align*}
+\displaystyle
+\cfrac{\partial \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))}{\partial \rho_{i_m,...,i_1}} = \cfrac{1}{\rho_{i_m,...,i_1}}\cdot\delta_{[S_m = i_m,...,S_1 = i_1]},
+\end{align*}
+because of this, it holds that:\\
+\begin{align*}
+\displaystyle
+\cfrac{\partial Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1})}{\partial\rho_{i_m,...,i_1}^{(l+1)}} 
+&= \sum_{\vec{s}_T}\cfrac{\partial \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))}{\partial \rho_{i_m,...,i_1}^{(l+1)}}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m)
+\\ &= \sum_{\vec{s}_{T}}\cfrac{1}{\rho_{i_m,...,i_1}^{(l+1)}}\delta_{[S_m = i_m,...,S_1 = i_1]}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m).
+\end{align*}
+We want to optimize $Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1})$ under the constraint $\sum_{j = 1}^{N^m}(\rho_{l+1})_j = 1$, i.e that the sum of all elements of $\rho_{l+1}$ shall be 1. Thus we construct the Lagrangian:
+\begin{align*}
+\displaystyle
+Q_{\lambda_l,\vec{y}_{T}}(\lambda_{l+1}) - \mu(\sum_{j = 1}^{N^m}(\rho_{l+1})_j-1)).
+\end{align*}
+Which leads to the first order condition:
+\begin{align*}
+\displaystyle
+&\sum_{\vec{s}_{T}} \cfrac{1}{\rho_{i_m,...,i_1}^{(l+1)}}\delta_{[S_m = i_m,...,S_1 = i_1]}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m) = \mu
+\\ &\Leftrightarrow \sum_{\vec{s}_T}\delta_{[S_m = i_m,...,S_1 = i_1]}f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m) = \rho_{i_m,...,i_1}^{(l+1)}\mu
+\\ &\Leftrightarrow f_{S_m,...,S_1,Y_T,...,Y_{m+1}|Y_m,...,Y_1;\lambda_l}(i_m,...,i_1,y_T,...,y_{m+1}|y_m,...,y_1) = \rho_{i_m,...,i_1}^{(l+1)}\mu
+\\ &\Leftrightarrow P_{\lambda_l}(S_m = i_m,...,S_1 = i_1|\mathcal{Y}_T  =\vec{y}_{T})f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m) = \mu \rho_{i_m,...,i_1}^{(l+1)}.
+\end{align*}
+If we now sum over all potential values of $(i_1,...i_m)$ we end up with:
+\begin{align*}
+\displaystyle
+&\sum_{i_m = 1}^{N}\cdots\sum_{i_1 = 1}^{N}P_{\lambda_l}(S_m = i_m,...,S_1 = i_1|\mathcal{Y}_T = \vec{y}_{T})f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m) 
+ = \sum_{i_m = 1}^{N}\cdots\sum_{i_1 = 1}^{N}\mu \rho_{i_m,...,i_1}^{(l+1)}
+\\ &\Leftrightarrow f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m) = \mu.
+\end{align*}
+We insert this for $\mu$ and get:
+\begin{align*}
+\displaystyle
+&P_{\lambda_l}(S_m = i_m,...,S_1 = i_1|\mathcal{Y}_T = \vec{y}_{T})f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m) = f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)\rho_{i_m,...,i_1}^{(l+1)}
+\\ &\Leftrightarrow P_{\lambda_l}(S_m = i_m,...,S_1 = i_1|\mathcal{Y}_T = \vec{y}_{T}) = \rho_{i_m,...,i_1}^{(l+1)}.
+\end{align*}
+This concludes the derivation of the EM algorithm for models with an underlying Markov-Chain and a dependence on a maximum lag order.
+
+
+
+
+
+
+
+
+
+
+
