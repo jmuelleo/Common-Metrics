@@ -2,3 +2,10 @@
 title: "Anticipating Recessions. Allocating with Precision"
 editor: visual
 ---
+
+The idea behind MacroShift is relatively easy. We know that we can predict recession probabilities utilizing Markov-Switching Models, their theory is described in the blogpost "Markov-Switching Models", the question I now want to answer is whether these predicted recession probabilities allow us to make better investment decisions. Therefore, we will estimate a Markov-Switching Model, with two underlying Regimes (recession, not-recession), then we will utilize the EM-Algorithm, Hamilton Filter and Kim-Filter to estimate smoothed regime probabilities for the past, based on several different variables (GDP, interest rate,...) from there we can predict the recession probability of the next time period (generally speaking quarter, as most macroeconomic data is quarterly data) and based on the recession probability predicted for each country we give different stocks and bonds in our portfolio different weights.
+
+Obviously this investment strategy can be paired with other strategies, that decide which financial products to buy for a specific country, but we will start by just buying index-funds that refelct the overall economy of each country, like the S&P 500 for the US or the MDax for Germany. Then each country will be given a weight, that is inverse to their recession probability.
+
+To be a bit more precise if we have $N$ countries, then the country weight of country i will be calculated as: $$ \begin{align} w_i = \frac{1-P(R_i)}{\sum_{k=1}^{N}(1-P(R_k))} \end{align}
+$$ Where $P(R_k)$ is the recession probability of country k for the next time period, and thus $(1-P(R_k))$ is the predicted probability that there will be no recession in country k during the next time period.

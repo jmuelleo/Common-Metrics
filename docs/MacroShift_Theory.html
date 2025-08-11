@@ -67,6 +67,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -89,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Start</span></a>
   </li>  
   <li class="nav-item">
@@ -107,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Anticipating Recessions. Allocating with Precision</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./MacroShift_Theory.html">MacroShift</a></li><li class="breadcrumb-item"><a href="./MacroShift_Theory.html">MacroShift - Underlying Theory</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -124,16 +153,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">MacroShift</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="./MacroShift_Theory.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">MacroShift - Underlying Theory</span></a>
   </div>
 </li>
@@ -150,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./MacroShift_Theory.html">MacroShift</a></li><li class="breadcrumb-item"><a href="./MacroShift_Theory.html">MacroShift - Underlying Theory</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Anticipating Recessions. Allocating with Precision</h1>
 </div>
@@ -169,6 +198,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>The idea behind MacroShift is relatively easy. We know that we can predict recession probabilities utilizing Markov-Switching Models, their theory is described in the blogpost “Markov-Switching Models”, the question I now want to answer is whether these predicted recession probabilities allow us to make better investment decisions. Therefore, we will estimate a Markov-Switching Model, with two underlying Regimes (recession, not-recession), then we will utilize the EM-Algorithm, Hamilton Filter and Kim-Filter to estimate smoothed regime probabilities for the past, based on several different variables (GDP, interest rate,…) from there we can predict the recession probability of the next time period (generally speaking quarter, as most macroeconomic data is quarterly data) and based on the recession probability predicted for each country we give different stocks and bonds in our portfolio different weights.</p>
+<p>Obviously this investment strategy can be paired with other strategies, that decide which financial products to buy for a specific country, but we will start by just buying index-funds that refelct the overall economy of each country, like the S&amp;P 500 for the US or the MDax for Germany. Then each country will be given a weight, that is inverse to their recession probability.</p>
+<p>To be a bit more precise if we have <span class="math inline">\(N\)</span> countries, then the country weight of country i will be calculated as: <span class="math display">\[ \begin{align} w_i = \frac{1-P(R_i)}{\sum_{k=1}^{N}(1-P(R_k))} \end{align}
+\]</span> Where <span class="math inline">\(P(R_k)\)</span> is the recession probability of country k for the next time period, and thus <span class="math inline">\((1-P(R_k))\)</span> is the predicted probability that there will be no recession in country k during the next time period.</p>
 
 
 

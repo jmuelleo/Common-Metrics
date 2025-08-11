@@ -6,9 +6,9 @@ title: "Common Metrics"
 
 My name is Julian Müller. Through Common Metrics, I aim to document and share my work across various areas of applied statistics and economics. This includes:
 
--   Blog posts on statistical topics such as Markov Switching Models or the development and documentation of my own R package, MSARM, for estimating such models.
-
 -   A transparent overview of my portfolio and the trading strategies it implements.
+
+-   Blog posts on statistical topics such as Markov Switching Models or the development and documentation of my own R package, MSARM, for estimating such models.
 
 -   Replication attempts of interesting academic papers, where I assess the robustness and reproducibility of published results.
 

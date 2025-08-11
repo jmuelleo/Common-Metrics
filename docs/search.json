@@ -1,5 +1,17 @@
 [
   {
+    "objectID": "MacroShift_Theory.html",
+    "href": "MacroShift_Theory.html",
+    "title": "Anticipating Recessions. Allocating with Precision",
+    "section": "",
+    "text": "The idea behind MacroShift is relatively easy. We know that we can predict recession probabilities utilizing Markov-Switching Models, their theory is described in the blogpost “Markov-Switching Models”, the question I now want to answer is whether these predicted recession probabilities allow us to make better investment decisions. Therefore, we will estimate a Markov-Switching Model, with two underlying Regimes (recession, not-recession), then we will utilize the EM-Algorithm, Hamilton Filter and Kim-Filter to estimate smoothed regime probabilities for the past, based on several different variables (GDP, interest rate,…) from there we can predict the recession probability of the next time period (generally speaking quarter, as most macroeconomic data is quarterly data) and based on the recession probability predicted for each country we give different stocks and bonds in our portfolio different weights.\nObviously this investment strategy can be paired with other strategies, that decide which financial products to buy for a specific country, but we will start by just buying index-funds that refelct the overall economy of each country, like the S&P 500 for the US or the MDax for Germany. Then each country will be given a weight, that is inverse to their recession probability.\nTo be a bit more precise if we have \\(N\\) countries, then the country weight of country i will be calculated as: \\[ \\begin{align} w_i = \\frac{1-P(R_i)}{\\sum_{k=1}^{N}(1-P(R_k))} \\end{align}\n\\] Where \\(P(R_k)\\) is the recession probability of country k for the next time period, and thus \\((1-P(R_k))\\) is the predicted probability that there will be no recession in country k during the next time period.",
+    "crumbs": [
+      "Start",
+      "MacroShift",
+      "MacroShift - Underlying Theory"
+    ]
+  },
+  {
     "objectID": "AboutMe.html",
     "href": "AboutMe.html",
     "title": "About Me",
@@ -11,11 +23,6 @@
     "href": "index.html",
     "title": "Common Metrics",
     "section": "",
-    "text": "Welcome to Common Metrics – a platform dedicated to sharing my current projects, ideas, and tools in a transparent and accessible way.\nMy name is Julian Müller. Through Common Metrics, I aim to document and share my work across various areas of applied statistics and economics. This includes:\n\nBlog posts on statistical topics such as Markov Switching Models or the development and documentation of my own R package, MSARM, for estimating such models.\nA transparent overview of my portfolio and the trading strategies it implements.\nReplication attempts of interesting academic papers, where I assess the robustness and reproducibility of published results.\n\nNo matter what you background is you’re welcome to give feedback regarding the blog posts or the website in general. You can find more about me in the “About Me” section.",
-    "crumbs": [
-      "Start",
-      "MacroShift",
-      "MacroShift - Underlying Theory"
-    ]
+    "text": "Welcome to Common Metrics – a platform dedicated to sharing my current projects, ideas, and tools in a transparent and accessible way.\nMy name is Julian Müller. Through Common Metrics, I aim to document and share my work across various areas of applied statistics and economics. This includes:\n\nA transparent overview of my portfolio and the trading strategies it implements.\nBlog posts on statistical topics such as Markov Switching Models or the development and documentation of my own R package, MSARM, for estimating such models.\nReplication attempts of interesting academic papers, where I assess the robustness and reproducibility of published results.\n\nNo matter what you background is you’re welcome to give feedback regarding the blog posts or the website in general. You can find more about me in the “About Me” section."
   }
 ]
