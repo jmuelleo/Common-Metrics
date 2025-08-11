@@ -3,7 +3,6 @@ title: "Markov-Switching-Models"
 editor: visual
 ---
 
-
 In this blogpost I will discuss the underlying theory behind Markov-Switching models, this includes a short review of Markov-Chains, as well as an in-depth derivation of the Hamilton-Filter, the Kim-Algorithm (for smoothed inference) and the EM-Algorithm. The derivations and explanations are mostly taken from my Bachelor Thesis, which discussed these topics as well. The equation numbers are the equation numbers as they are in Bachelor Thesis, so you can find them easily in the original work. My thesis can be downloaded at the end of my "About Me" section and additionally discusses the development of my R package (MSARM) and how MSARM outperforms MSwM regarding estimation robustness.
 
 
