@@ -136,7 +136,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Markov-Switching-Models</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Markov_Switching_Models.html">Blog Posts</a></li><li class="breadcrumb-item"><a href="./Markov_Switching_Models.html">Markov-Switching Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -168,18 +168,62 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Blog Posts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Markov_Switching_Models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Markov-Switching Models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#brief-remarks-on-notation" id="toc-brief-remarks-on-notation" class="nav-link active" data-scroll-target="#brief-remarks-on-notation">Brief Remarks on Notation</a></li>
+  <li><a href="#markov-chains-and-autoregressive-processes" id="toc-markov-chains-and-autoregressive-processes" class="nav-link" data-scroll-target="#markov-chains-and-autoregressive-processes">Markov-Chains and Autoregressive Processes</a>
+  <ul class="collapse">
+  <li><a href="#markov-chains" id="toc-markov-chains" class="nav-link" data-scroll-target="#markov-chains">Markov-Chains</a></li>
+  <li><a href="#autoregressive-ar-processes" id="toc-autoregressive-ar-processes" class="nav-link" data-scroll-target="#autoregressive-ar-processes">Autoregressive (AR) Processes</a></li>
+  <li><a href="#introduction-to-markov-switching-models" id="toc-introduction-to-markov-switching-models" class="nav-link" data-scroll-target="#introduction-to-markov-switching-models">Introduction to Markov-Switching Models</a></li>
+  <li><a href="#optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood" id="toc-optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood" class="nav-link" data-scroll-target="#optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood">Optimal Inference of the Regimes and Derivation of the Log-Likelihood</a></li>
+  <li><a href="#smoothed-inference-over-the-regimes" id="toc-smoothed-inference-over-the-regimes" class="nav-link" data-scroll-target="#smoothed-inference-over-the-regimes">Smoothed Inference over the Regimes</a></li>
+  <li><a href="#optimisation-of-the-conditional-log-likelihood" id="toc-optimisation-of-the-conditional-log-likelihood" class="nav-link" data-scroll-target="#optimisation-of-the-conditional-log-likelihood">Optimisation of the Conditional Log-Likelihood</a>
+  <ul class="collapse">
+  <li><a href="#general-em-algorithm-theory" id="toc-general-em-algorithm-theory" class="nav-link" data-scroll-target="#general-em-algorithm-theory">General EM Algorithm Theory</a></li>
+  <li><a href="#application-of-the-em-algorithm-to-markov-switching-ar-models" id="toc-application-of-the-em-algorithm-to-markov-switching-ar-models" class="nav-link" data-scroll-target="#application-of-the-em-algorithm-to-markov-switching-ar-models">Application of the EM Algorithm to Markov-Switching AR Models</a></li>
+  <li><a href="#example-0-switching-coefficients-and-intercept-non-switching-sigma2" id="toc-example-0-switching-coefficients-and-intercept-non-switching-sigma2" class="nav-link" data-scroll-target="#example-0-switching-coefficients-and-intercept-non-switching-sigma2">Example 0: Switching Coefficients and Intercept, Non-Switching <span class="math inline">\(\sigma^2\)</span></a></li>
+  <li><a href="#example-1-non-switching-intercept" id="toc-example-1-non-switching-intercept" class="nav-link" data-scroll-target="#example-1-non-switching-intercept">Example 1: Non-Switching Intercept</a></li>
+  <li><a href="#example-2-switching-intercept-and-non-switching-coefficients" id="toc-example-2-switching-intercept-and-non-switching-coefficients" class="nav-link" data-scroll-target="#example-2-switching-intercept-and-non-switching-coefficients">Example 2: Switching Intercept and Non-Switching Coefficients</a></li>
+  <li><a href="#example-3-all-parameters-switch" id="toc-example-3-all-parameters-switch" class="nav-link" data-scroll-target="#example-3-all-parameters-switch">Example 3: All Parameters Switch</a></li>
+  <li><a href="#example-4-arbitrary-subset-switching-of-cphi-and-non-switching-sigma2" id="toc-example-4-arbitrary-subset-switching-of-cphi-and-non-switching-sigma2" class="nav-link" data-scroll-target="#example-4-arbitrary-subset-switching-of-cphi-and-non-switching-sigma2">Example 4: Arbitrary Subset-Switching of <span class="math inline">\((c,\phi)\)</span> and Non-Switching <span class="math inline">\(\sigma^2\)</span></a></li>
+  <li><a href="#example-5-arbitrary-subset-switching-of-cphi-and-switching-sigma2" id="toc-example-5-arbitrary-subset-switching-of-cphi-and-switching-sigma2" class="nav-link" data-scroll-target="#example-5-arbitrary-subset-switching-of-cphi-and-switching-sigma2">Example 5: Arbitrary Subset-Switching of <span class="math inline">\((c,\phi)\)</span> and Switching <span class="math inline">\(\sigma^2\)</span></a></li>
+  </ul></li>
+  <li><a href="#forecasting-with-markov-switching-models" id="toc-forecasting-with-markov-switching-models" class="nav-link" data-scroll-target="#forecasting-with-markov-switching-models">Forecasting with Markov-Switching Models</a></li>
+  <li><a href="#regime-forecasting-with-markov-switching-models" id="toc-regime-forecasting-with-markov-switching-models" class="nav-link" data-scroll-target="#regime-forecasting-with-markov-switching-models">Regime Forecasting with Markov-Switching Models</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Markov_Switching_Models.html">Blog Posts</a></li><li class="breadcrumb-item"><a href="./Markov_Switching_Models.html">Markov-Switching Models</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Markov-Switching-Models</h1>
 </div>
@@ -198,10 +242,17 @@ window.Quarto = {
 </header>
 
 
+<section id="brief-remarks-on-notation" class="level1">
+<h1>Brief Remarks on Notation</h1>
 <p>We start with a short discussion of the notation utilized in this paper. The density function of a continuous random variable <span class="math inline">\(Y\)</span> will be denoted as <span class="math inline">\(f_Y(y)\)</span>, the conditional density function, based on another random variable <span class="math inline">\(X\)</span> will be denoted as <span class="math inline">\(f_{Y|X}(y|x)\)</span>. We want to emphasize that in this notation, the subscript denotes the arguments of the density function, and the values in the parentheses denote the point at which the density function is evaluated. Furthermore we define a generalized density function for a vector of a discrete random variable <span class="math inline">\(S\)</span> and a continuous random variable <span class="math inline">\(Y\)</span> as <span class="math inline">\(f_{Y,S}(y,s) = f_{Y|S}(y|s)\cdot P(S = s)\)</span>. Last but not least it should be noted that we will denote a parameter vector <span class="math inline">\(\theta\)</span> that influences the distribution of a random variable with a semicolon after the arguments in the density function’s subscript. For probability functions, the parameter vector will also be denoted with a subscript. For example, for a continuous random variable <span class="math inline">\(Y\)</span>, we could write <span class="math inline">\(f_{Y;\theta}(y)\)</span> or for a discrete random variable <span class="math inline">\(S\)</span>, <span class="math inline">\(P_{\theta}(S = s)\)</span>. It should be noted that both could be seen as functions in <span class="math inline">\(\theta\)</span>.</p>
+</section>
+<section id="markov-chains-and-autoregressive-processes" class="level1">
+<h1>Markov-Chains and Autoregressive Processes</h1>
+<section id="markov-chains" class="level2">
+<h2 class="anchored" data-anchor-id="markov-chains">Markov-Chains</h2>
 <p>With the general notation out of the way, we can start to build the foundation of Markov-Switching AR models. For that, we start with Markov-Chains in general. Markov-Chains are stochastic processes satisfying the so-called Markov property. More precisely, we consider a sequence of random variables <span class="math inline">\(S_t, S_{t-1},...\)</span> that can take values in the set <span class="math inline">\(\{1, \dots, N\}\)</span>, and fulfill the property: <span class="math display">\[\begin{equation}
     P(S_t = j \mid S_{t-1} = i, \dots, S_1 = a_1) = P(S_t = j \mid S_{t-1} = i).
-\end{equation}\]</span> This means that the next state is conditionally independent of all previous states given the current state. The transition probabilities between the states of such a Markov-Chain are usually summarized in a so-called transition matrix <span class="math inline">\(\Pi\)</span>, where the ith row and jth column element of <span class="math inline">\(\Pi\)</span> is given by [ ()<em>{i,j} = </em>{i,j} = P(S_t = j S_{t-1} = i). ] Thereby <span class="math inline">\((\cdot)_{i,j}\)</span> indicates the ith row and jth column element. Additionally, we want to point out that we will denote the transpose of a matrix <span class="math inline">\(A\)</span> as <span class="math inline">\(A'\)</span> throughout this thesis. Therefore, <span class="math inline">\(\Pi\)</span> is defined such that the rows indicate the previous state and the columns represent the state being transitioned into. Furthermore, the sum of the row elements must equal 1. It has to be noted that we can represent a Markov-Chain as a Vector-Autoregressive-Process (VAR). The following discussion of representing Markov-Chains as a VAR closely follows Hamilton (1994, page 678-680). Suppose we have an underlying Markov-Chain <span class="math inline">\(S_t, S_{t-1},...\)</span>, and the state space is <span class="math inline">\(\{1, \dots, N\}\)</span>. We then define: <span class="math display">\[\begin{equation}
+\end{equation}\]</span> This means that the next state is conditionally independent of all previous states given the current state. The transition probabilities between the states of such a Markov-Chain are usually summarized in a so-called transition matrix <span class="math inline">\(\Pi\)</span>, where the ith row and jth column element of <span class="math inline">\(\Pi\)</span> is given by <span class="math inline">\((\Pi){i,j} = \pi{i,j} = P(S_t = j \mid S_{t-1} = i)\)</span>. Thereby <span class="math inline">\((\cdot)_{i,j}\)</span> indicates the ith row and jth column element. Additionally, we want to point out that we will denote the transpose of a matrix <span class="math inline">\(A\)</span> as <span class="math inline">\(A'\)</span> throughout this thesis. Therefore, <span class="math inline">\(\Pi\)</span> is defined such that the rows indicate the previous state and the columns represent the state being transitioned into. Furthermore, the sum of the row elements must equal 1. It has to be noted that we can represent a Markov-Chain as a Vector-Autoregressive-Process (VAR). The following discussion of representing Markov-Chains as a VAR closely follows Hamilton (1994, page 678-680). Suppose we have an underlying Markov-Chain <span class="math inline">\(S_t, S_{t-1},...\)</span>, and the state space is <span class="math inline">\(\{1, \dots, N\}\)</span>. We then define: <span class="math display">\[\begin{equation}
 \zeta_{t} =
 \begin{cases}
 (1,0,...,0)', &amp; \text{if } S_t = 1\\
@@ -272,11 +323,18 @@ P_{\theta}(S_t = N|\mathcal{Y}_t = \vec{y}_t)
 \end{align*}\]</span> Applying this to all elements we end up with: <span class="math display">\[\begin{equation}
     E_{\theta}(\zeta_{t+m}|\mathcal{Y}_t = \vec{y}_t) = (\Pi')^m\hat{\zeta}_{t|t},
 \end{equation}\]</span> compare Hamilton (1994, page 693). This property will be essential later, therefore it is important to keep in mind that this indeed holds true.</p>
+</section>
+<section id="autoregressive-ar-processes" class="level2">
+<h2 class="anchored" data-anchor-id="autoregressive-ar-processes">Autoregressive (AR) Processes</h2>
 <p>Working with time series can be tricky, as one always deals with stochastic processes. The idea is the following, if one observes a time series <span class="math inline">\(\vec{y}_T = (y_1,...,y_T)\)</span>, then the observations are the realizations of the random variables <span class="math inline">\(\mathcal{Y}_T = (Y_1,...,Y_T)\)</span>. These random variables, are connected to each other, since they all stem from the same underlying stochastic process. The goal is now to estimate said stochastic process. Before estimating the parameters of a process, it is necessary to decide which process to assume as the underlying (or at least sufficiently similar) process. A rather often utilized process-family are AR processes, an AR(m) has the form: <span class="math display">\[\begin{align*}
     Y_t = c + \phi_1Y_{t-1} + ... + \phi_mY_{t-m} + U_t; \quad \text{where}\quad U_t \sim WN(0,\sigma^2).
 \end{align*}\]</span> Thereby <span class="math inline">\(WN(0,\sigma^2)\)</span> denotes a zero-mean white noise process with variance <span class="math inline">\(\sigma^2\)</span>. The white noise distribution that is most often used is the normal distribution. Therefore <span class="math display">\[\begin{align*}
     Y_t = c + \phi_1Y_{t-1} + ... + \phi_mY_{t-m} + U_t; \quad \text{where}\quad U_t \sim N(0,\sigma^2),
 \end{align*}\]</span> would qualify as an AR(m). This framework of an AR(m) with gaussian white noise will be the foundation on which Markov-Switching AR models are built in the next section.</p>
+<p>#Markov-Switching Models (MSM)</p>
+</section>
+<section id="introduction-to-markov-switching-models" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-markov-switching-models">Introduction to Markov-Switching Models</h2>
 <p>The basic idea of Markov-Switching models is that the stochastic process <span class="math inline">\(Y_1,..., Y_T\)</span> is itself influenced by another, underlying stochastic process, in this specific case by an underlying Markov-Chain. Therefore, a Markov-Switching AR(1) could take the following form: <span class="math display">\[\begin{equation}
 Y_t = c_{s_t} + \phi_{s_t}Y_{t-1} + U_{t}; \quad \text{where} \quad U_{t} \overset{i.i.d.}{\sim} N(0,\sigma^2).
 \end{equation}\]</span> We could alternatively write: <span class="math display">\[\begin{align*}
@@ -307,6 +365,9 @@ f_{Y_t|S_t, \mathcal{Y}_{t-1}; \alpha}(y_t|N,\vec{y}_{t-1})
 \end{pmatrix}.
 \end{equation}\]</span></p>
 <p>Now that this model class has been introduced, we want to further investigate the question of optimal inference regarding the states of the Markov-Chain, often called regimes. In the following sections, the goal is to estimate the parameter vector <span class="math inline">\(\theta = (\Pi,\alpha)\)</span> given <span class="math inline">\(\mathcal{Y}_t = \vec{y}_{t}\)</span>.</p>
+</section>
+<section id="optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood">Optimal Inference of the Regimes and Derivation of the Log-Likelihood</h2>
 <p>But before we follow this endeavour, we peak into a world where we assume that <span class="math inline">\(\theta\)</span> is known. Given <span class="math inline">\(\theta\)</span> we want to get inference regarding the regimes of the time series. We start by summarizing the <span class="math inline">\(P_{\theta}(S_t = j|\mathcal{Y}_t = \vec{y}_{t})\)</span> and <span class="math inline">\(P_{\theta}(S_{t+1} = j|\mathcal{Y}_t = \vec{y}_{t})\)</span> for all <span class="math inline">\(j = 1,...,N\)</span>, similarily to (13) in: <span class="math display">\[\begin{equation}
 \hat{\zeta}_{t|t} = \begin{pmatrix}
 P_{\theta}(S_t = 1|\mathcal{Y}_t = \vec{y}_{t})\\
@@ -332,11 +393,19 @@ P_{\theta}(S_{t+1} = N|\mathcal{Y}_t = \vec{y}_{t})\\
 \displaystyle
 f_{Y_t|\mathcal{Y}_{t-1};\theta}(y_t|\vec{y}_{t-1}) = \mathbf{1'}(\hat{\zeta}_{t|t-1} \odot \eta_t),
 \end{equation}\]</span> see Hamilton (1994, page 692). That this is indeed true is shown in the Appendix, section 9.1. Based on this system of two equations and a given <span class="math inline">\(\theta\)</span> we start with a random <span class="math inline">\(\hat{\zeta}_{1|0}\)</span> and iterate over all t until we reach T (T is the number of periods for which observations of the time series exist). This gives us the regime probabilities conditionally on the data until t. Additionally we get the Log-Likelihood function, which can be optimized in <span class="math inline">\(\theta\)</span> to derive the Maximum Likelihood estimate of <span class="math inline">\(\theta\)</span>. It is important to note that a direct optimization of <span class="math inline">\(\mathcal{L}(\theta)\)</span> can be computationally expensive and often leads to suboptimal results. Therefore, Hamilton introduced, in his paper “Analysis of Time Series subject to Changes in Regime” from 1990, an iterative optimization algorithm for <span class="math inline">\(\mathcal{L}(\theta)\)</span>, which is an application of the EM algorithm. Applying a specific variant of the EM algorithm to this optimization problem, instead of more general optimization algorithms can lead to better and computationally less expensive results, see Hamilton (1990, page 40-41). The details of this specific application of the EM algorithm for the optimization of <span class="math inline">\(\mathcal{L}(\theta)\)</span> are shown throughout the following sections, this includes a derivation of an algorithm developed by Kim (1994), which can improve some aspects of the application of the EM algorithm as shown in Hamilton (1990). The derivation shown of the “Kim-Algorithm” is based on Hamilton (1994, page 700-702).</p>
+</section>
+<section id="smoothed-inference-over-the-regimes" class="level2">
+<h2 class="anchored" data-anchor-id="smoothed-inference-over-the-regimes">Smoothed Inference over the Regimes</h2>
 <p>Before further investigating the optimization of the log-likelihood and the associated parameter estimation, we want to first discuss how to get inference on <span class="math inline">\(P_{\theta}(S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})\)</span>, as this will be essential for the application of the aforementioned EM algorithm. Estimating <span class="math inline">\(P_{\theta}(S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})\)</span> is often called “smoothed inference” for the regimes. To get this smoothed inference, we apply the algorithm from Kim (1994). The proposition is that, assuming <span class="math inline">\(S_t\)</span> follows a first order Markov-Chain and that the conditional density, <span class="math inline">\(f_{Y_t|S_t,\mathcal{Y}_{t-1};\alpha}(y_t|j,\vec{y}_{t-1})\)</span>, depends only on <span class="math inline">\(S_t,S_{t-1},...\)</span> through <span class="math inline">\(S_t\)</span>, i.e.&nbsp;that (11) holds true, an assumption we have already made throughout section 3.1, it shall hold that: <span class="math display">\[\begin{equation}
 \displaystyle
 \hat{\zeta}_{t|T} = \hat{\zeta}_{t|t} \odot (\Pi(\hat{\zeta}_{t+1|T}(\div)\hat{\zeta}_{t+1|t})),
 \end{equation}\]</span> where <span class="math inline">\((\div)\)</span> is the symbol for element-by-element division, see Hamilton (1994, page 694). To get the values of <span class="math inline">\(P_{\theta}(S_{t-1} = i|\mathcal{Y}_T = \vec{y}_{T})\)</span> for <span class="math inline">\(t\)</span> in <span class="math inline">\(1,...,T\)</span> one starts with <span class="math inline">\(t = T-1\)</span> and iterates backwards. The derivation can be found in the Appendix, section 9.2.</p>
-We now turn to the EM algorithm. Assuming we observe <span class="math inline">\(\vec{y}_{T} = (y_1,...,y_T)\)</span>, a trick that is often utilized is to optimize a density function of the form <span class="math inline">\(f_{Y_T,...,Y_{m+1}|Y_{m},...,Y_1;\lambda}(y_T,...,y_{m+1}|y_m,...,y_1)\)</span> in <span class="math inline">\(\lambda\)</span> instead of <span class="math inline">\(f_{Y_T,...,Y_1;\theta}(y_T,...,y_1)\)</span> in <span class="math inline">\(\theta\)</span>. We have to optimize in <span class="math inline">\(\lambda\)</span> because if we choose such a conditional likelihood function, then we have to make assumptions about how the initial states <span class="math inline">\((Y_{m},...,Y_1)\)</span> are distributed. The simplest approach is to assume that they are seperately drawn from a distribution with the parameters <span class="math inline">\(\rho\)</span>. Thereby <span class="math inline">\(\rho\)</span> shall be unrelated of <span class="math inline">\(\Pi\)</span> and <span class="math inline">\(\alpha\)</span>. The new parameter vector <span class="math inline">\(\lambda\)</span> is therefore defined as <span class="math inline">\(\lambda = (\Pi,\alpha,\rho)\)</span>. The conditional likelihood function is primarily chosen due to practical reasons. Optimizing the likelihood function instead is often more challenging and yields next to no additional gain. Choosing the conditional likelihood enables the application of the EM algorithm, as described by Hamilton (1990), which estimates the parameters with relatively low computational demands, at least compared to other numerical methods, see Hamilton (1990, page 40). Still it has to be emphasized that the EM algorithm that Hamilton introduces only leads to a local maximum of the conditional likelihood function, as will be shown throughout this section. Generally speaking, this is not problematic, as one can start the algorithm with several different values to see whether the results are robust. We start by defining <span class="math display">\[\begin{equation}
+</section>
+<section id="optimisation-of-the-conditional-log-likelihood" class="level2">
+<h2 class="anchored" data-anchor-id="optimisation-of-the-conditional-log-likelihood">Optimisation of the Conditional Log-Likelihood</h2>
+<section id="general-em-algorithm-theory" class="level3">
+<h3 class="anchored" data-anchor-id="general-em-algorithm-theory">General EM Algorithm Theory</h3>
+<p>We now turn to the EM algorithm. Assuming we observe <span class="math inline">\(\vec{y}_{T} = (y_1,...,y_T)\)</span>, a trick that is often utilized is to optimize a density function of the form <span class="math inline">\(f_{Y_T,...,Y_{m+1}|Y_{m},...,Y_1;\lambda}(y_T,...,y_{m+1}|y_m,...,y_1)\)</span> in <span class="math inline">\(\lambda\)</span> instead of <span class="math inline">\(f_{Y_T,...,Y_1;\theta}(y_T,...,y_1)\)</span> in <span class="math inline">\(\theta\)</span>. We have to optimize in <span class="math inline">\(\lambda\)</span> because if we choose such a conditional likelihood function, then we have to make assumptions about how the initial states <span class="math inline">\((Y_{m},...,Y_1)\)</span> are distributed. The simplest approach is to assume that they are seperately drawn from a distribution with the parameters <span class="math inline">\(\rho\)</span>. Thereby <span class="math inline">\(\rho\)</span> shall be unrelated of <span class="math inline">\(\Pi\)</span> and <span class="math inline">\(\alpha\)</span>. The new parameter vector <span class="math inline">\(\lambda\)</span> is therefore defined as <span class="math inline">\(\lambda = (\Pi,\alpha,\rho)\)</span>. The conditional likelihood function is primarily chosen due to practical reasons. Optimizing the likelihood function instead is often more challenging and yields next to no additional gain. Choosing the conditional likelihood enables the application of the EM algorithm, as described by Hamilton (1990), which estimates the parameters with relatively low computational demands, at least compared to other numerical methods, see Hamilton (1990, page 40). Still it has to be emphasized that the EM algorithm that Hamilton introduces only leads to a local maximum of the conditional likelihood function, as will be shown throughout this section. Generally speaking, this is not problematic, as one can start the algorithm with several different values to see whether the results are robust. We start by defining <span class="math display">\[\begin{equation}
 P_{\lambda}(S_m = s_m,S_{m-1} = s_{m-1},...,S_1 = s_1|Y_m = y_m,...,Y_1 = y_1) = \rho_{s_m,...,s_1},
 \end{equation}\]</span> and <span class="math display">\[\begin{equation}
 \rho = (\rho_{1,1,..,1},\rho_{1,1,..,2},...,\rho_{N,N,..,N}).
@@ -366,7 +435,7 @@ f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_{m};\lambda}(\vec{y}_{T:(m+1)}|\vec{y}_{m})
 \end{equation}\]</span> and <span class="math display">\[\begin{equation}
 \displaystyle
 Q_{\lambda_l,\vec{y}_T}(\lambda_{l+1}) = \sum_{\vec{s}_T} \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m).
-\end{equation}\]</span> Where we call <span class="math inline">\(Q_{\lambda_l,\vec{y}_T}(\lambda_{l+1})\)</span> the expected log-likelihood. With that remark we finish the necessary notation, which is based on Hamilton (1990, page 42-44) and Hamilton (1990, page 46-47). Now we want to show that the EM algorithm works. It is noteworthy that the EM algorithm can be seen from two different perspectives.
+\end{equation}\]</span> Where we call <span class="math inline">\(Q_{\lambda_l,\vec{y}_T}(\lambda_{l+1})\)</span> the expected log-likelihood. With that remark we finish the necessary notation, which is based on Hamilton (1990, page 42-44) and Hamilton (1990, page 46-47). Now we want to show that the EM algorithm works. It is noteworthy that the EM algorithm can be seen from two different perspectives.</p>
 <p>First we want to discuss the EM algorithm as a sequence of optimization problems. <span class="math inline">\(\hat{\lambda}_l\)</span> is the result of the lth optimization problem, and we start with a random <span class="math inline">\(\hat{\lambda}_0\)</span> for the first optimization problem. We choose <span class="math inline">\(\hat{\lambda}_{l+1}\)</span> such that <span class="math inline">\(Q_{\hat{\lambda}_l,\vec{y}_T}(\lambda_{l+1})\)</span> is maximized. We remember: <span class="math display">\[\begin{align*}
 \displaystyle
 Q_{\hat{\lambda}_l,\vec{y}_T}(\lambda_{l+1}) = \sum_{\vec{s}_T} \ln(f_{\mathcal{Y}_{T:(m+1)},\mathcal{S}|\mathcal{Y}_m;\lambda_{l+1}}(\vec{y}_{T:(m+1)},\vec{s}_T|\vec{y}_m))f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\hat{\lambda}_l}(\vec{y}_{T:(m+1)}|\vec{y}_m).
@@ -414,6 +483,9 @@ P_{\hat{\lambda}_l}(\mathcal{S} = \vec{s}_T|\mathcal{Y}_T = \vec{y}_T) = \cfrac{
 \\ &amp;\Leftrightarrow \cfrac{1}{f_{\mathcal{Y}_{T:(m+1)}|\mathcal{Y}_m;\hat{\lambda}_{l}}(\vec{y}_{T:(m+1)}|\vec{y}_m)}\cfrac{\partial Q_{\hat{\lambda}_l,\vec{y}_T}(\lambda)}{\partial \lambda} = 0
 \\ &amp;\Leftrightarrow \cfrac{\partial Q(\lambda,\hat{\lambda}_l,\vec{y}_T)}{\partial \lambda} = 0.
 \end{align*}\]</span> This again is the characterizing condition for <span class="math inline">\(\hat{\lambda}_{l+1}\)</span> in the first perspective!</p>
+</section>
+<section id="application-of-the-em-algorithm-to-markov-switching-ar-models" class="level3">
+<h3 class="anchored" data-anchor-id="application-of-the-em-algorithm-to-markov-switching-ar-models">Application of the EM Algorithm to Markov-Switching AR Models</h3>
 <p>The next essential step in the theoretical exposition is to demonstrate the application of the EM algorithm to models of the type we are using, that is, models with an underlying Markov-Chain and a dependence on a maximum lag order. Hamilton states that, when using the EM algorithm to maximize the conditional log-likelihood, one obtains three equations to iterate over, see Hamilton (1990, page 51). The equations given by Hamilton are: <span class="math display">\[\begin{equation}
 \displaystyle
 \pi_{i,j}^{(l+1)} = \cfrac{\sum_{t = m+1}^{T}P_{\lambda_l}(S_t = j,S_{t-1} = i|\mathcal{Y}_T = \vec{y}_T)}{\sum_{t = m+1}^{T}P_{\lambda_l}(S_{t-1} = i|\mathcal{Y}_T = \vec{y}_T)},  
@@ -425,6 +497,9 @@ P_{\hat{\lambda}_l}(\mathcal{S} = \vec{s}_T|\mathcal{Y}_T = \vec{y}_T) = \cfrac{
 \rho_{i_m,...,i_1}^{(l+1)} = P_{\lambda_l}(S_m = i_m,...,S_1 = i_1|\mathcal{Y}_T = \vec{y}_T).  
 \end{equation}\]</span></p>
 <p>We show that these equations are indeed true in the Appendix, section 9.3. Given this exposition one can apply the EM algorithm to a very broad class of models, even broader than just Markov-Switching AR models, but to actually estimate a specific model, one has to specify the assumed process in more detail. Hamilton (1990) shows only one potential setup for Markov-Switching AR models, we will call this setup “Example 0” throughout this paper. Deriving the results for Example 0 will be the subject of the next section. After this is done we will show 5 more examples, establishing broader AR setups, until the theory for estimating any potential Markov-Switching AR model has been shown. Thereby, Example 1 to Example 3 are specific examples that are introduced to improve the readability of the general cases, Example 4 and Example 5.</p>
+</section>
+<section id="example-0-switching-coefficients-and-intercept-non-switching-sigma2" class="level3">
+<h3 class="anchored" data-anchor-id="example-0-switching-coefficients-and-intercept-non-switching-sigma2">Example 0: Switching Coefficients and Intercept, Non-Switching <span class="math inline">\(\sigma^2\)</span></h3>
 <p>Here we assume that the underlying process is given by a Markov-Switching AR(m), which fulfills all assumptions formulated in section 4.1, the only difference is that the assumed underlying AR process now has the following form. <span class="math display">\[\begin{equation}
 \displaystyle
 Y_t = c_{s_t}+\phi_{1,s_t}Y_{t-1} +...+ \phi_{m,s_t}Y_{t-m} + U_t \quad \text{where} \quad  U_{t} \overset{i.i.d.}{\sim} N(0,\sigma^2).
@@ -511,6 +586,9 @@ y_t^* = y_t\sqrt{P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)} \quad \text{a
 \displaystyle
     \sigma^2 = \cfrac{1}{(T-m)}\sum_{j = 1}^{N}\sum_{t = m+1}^{T}(y_t^* - (x_t^*)'\beta_j)^2.
 \end{equation}\]</span> Therefore, we have now a specific algorithm for estimating the parameters of a Markov-Switching AR model, where all coefficients switch and the error term variance does not switch. This is the case presented in Hamilton (1990, page 56-58). Sadly Hamilton does not show how to apply the EM algorithm to broader structures of AR models, therefore the following examples are the application of the EM algorithm to broader defined AR processes. To the best of the authors knowledge this presentation of applying the EM algorithm to broader defined specific AR processes is novel.</p>
+</section>
+<section id="example-1-non-switching-intercept" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-non-switching-intercept">Example 1: Non-Switching Intercept</h3>
 <p>From the previous derivations, we know that the equations (38), (39), and (40) hold. The five applications of the EM algorithm that we now specifically present are within the class of models for which these three equations were originally derived, i.e.&nbsp;an autoregressive process with a maximum lag order. As opposed to Example 0 we vary the parameters influenced by the underlying Markov-Chain. It is important to emphasize that all models presented are still Markov-Switching AR(m) models with gaussian white noise that fulfill the assumptions made in section 4.1, i.e that fulfill (11), (12), (16) and (17). Assumption (11) is fulfilled because the parameters that describe the generation of <span class="math inline">\(Y_t\)</span> are only directly influenced by the current state of the Markov-Chain <span class="math inline">\(s_t\)</span> and not by earlier states of the Markov-Chain <span class="math inline">\(s_{t-1},s_{t-2},...\)</span>, as described in 4.1.\\ With that general short discussion out of the way we now turn to Example 1. This time we assume that the coefficients switch, while the intercept and the error term variance do not switch. The assumed process therefore has the following form: <span class="math display">\[\begin{align*}
     Y_t = c + \phi_{1,s_t}Y_{t-1}+...+\phi_{m,s_t}Y_{t-m} + U_t; \quad \text{where} \quad U_{t} \overset{i.i.d.}{\sim} N(0,\sigma^2).
 \end{align*}\]</span> We could alternatively write: <span class="math display">\[\begin{align*}
@@ -577,6 +655,9 @@ c_{(l+1)} = \cfrac{1}{(T-m)}\sum_{t = m+1}^{T}\sum_{j = 1}^{N}(y_t - x_t'\phi_{s
 \displaystyle
 \sigma^2 = \cfrac{1}{(T-M)}\sum_{t = m+1}^T\sum_{j = 1}^{N}(y_t - c - x_t'\phi_j)^2P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T).
 \end{align*}\]</span> This concludes our <span class="math inline">\(\alpha\)</span> vector for the next iteration.</p>
+</section>
+<section id="example-2-switching-intercept-and-non-switching-coefficients" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-switching-intercept-and-non-switching-coefficients">Example 2: Switching Intercept and Non-Switching Coefficients</h3>
 <p>This time, we reverse the roles; instead of letting the coefficients switch, now only the intercept switches. Therefore, the assumed process would have the following form: <span class="math display">\[\begin{align*}
     Y_t = c_{s_t} + \phi_{1}Y_{t-1}+...+\phi_{m}Y_{t-m} + U_t; \quad \text{where} \quad U_{t} \overset{i.i.d.}{\sim} N(0,\sigma^2),
 \end{align*}\]</span> we could alternatively write: <span class="math display">\[\begin{align*}
@@ -612,7 +693,7 @@ X_t =
 &amp;\cfrac{\partial \ln(f_{Y_t|Z_t;\alpha}(y_t|z_t))}{\partial \phi} = \cfrac{(y_t - c_{s_t} -x_t'\phi)x_t}{\sigma^2} \quad \forall s_t \in \{1,...,N\}.
 \end{align*}\]</span> We insert in (39), this leads us to: <span class="math display">\[\begin{align*}
 \displaystyle
-&amp;\sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}\cdots\sum_{s_{t-m} = 1}^{N}\cfrac{(y_t - c_{s_t}^{(l+1)} -x_t'\phi^{(l+1)})x_t}{\sigma^_{(l+1)}^2}P_{\lambda_l}(S_t = s_t,...,S_{t-m} = s_{t-m}|\mathcal{Y}_T = \vec{y}_T) = 0
+&amp;\sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}\cdots\sum_{s_{t-m} = 1}^{N}\cfrac{(y_t - c_{s_t}^{(l+1)} -x_t'\phi^{(l+1)})x_t}{\sigma_{(l+1)}^2}P_{\lambda_l}(S_t = s_t,...,S_{t-m} = s_{t-m}|\mathcal{Y}_T = \vec{y}_T) = 0
 \\&amp; \Leftrightarrow \sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}\cfrac{(y_t - c_{s_t}^{(l+1)} - x_t'\phi^{(l+1)})x_t}{\sigma_{(l+1)}^2}P_{\lambda_l}(S_t = s_t|\mathcal{Y}_T = \vec{y}_T) = 0
 \\&amp; \Leftrightarrow \sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}(y_t - c_{s_t}^{(l+1)} - x_t'\phi^{(l+1)})x_tP_{\lambda_l}(S_t = s_t|\mathcal{Y}_T = \vec{y}_T) = 0
 \\&amp; \Leftrightarrow \sum_{t = m+1}^{T}\sum_{s_t = 1}^{N}(y_t - c_{s_t}^{(l+1)})x_tP_{\lambda_l}(S_t = s_t|\mathcal{Y}_T = \vec{y}_T) =
@@ -641,6 +722,9 @@ X_t =
 \displaystyle
 \sigma^2 = \cfrac{1}{(T-M)}\sum_{t = m+1}^T\sum_{j = 1}^{N}(y_t - c - x_t'\phi_j)^2P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T),
 \end{align*}\]</span> and with that we get out <span class="math inline">\(\alpha\)</span> vector for the next iteration.</p>
+</section>
+<section id="example-3-all-parameters-switch" class="level3">
+<h3 class="anchored" data-anchor-id="example-3-all-parameters-switch">Example 3: All Parameters Switch</h3>
 <p>As a third example, we now consider the case in which all parameters are allowed to switch. That is, we now allow not only the coefficients and the intercept to switch, but also the variance of the error term. It is important to note that in setups discussed earlier one could have made stronger assumptions, namely it would have been easier to assume in Example 0 to Example 2, that <span class="math inline">\(S_t\)</span> was independent of <span class="math inline">\(U_{\tau}\)</span> for all <span class="math inline">\(t\)</span> and <span class="math inline">\(\tau\)</span>. Instead we made the weaker assumptions (16) and (17) so that we can now introduce models where the error term variance is allowed to switch, that wouldn’t have been possible with the stronger set of assumptions. That is the reason why all derivations earlier were done with this weaker set of assumptions. That said, we want to point out that we still make the same assumptions as in section 4.1, this is possible due to the weaker set of assumptions, a stronger set of assumptions wouldn’t allow for models like Example 3 and Example 5. Additionally, it should be noted that, in terms of notation, we now again include a <span class="math inline">\(1\)</span> as the first element of <span class="math inline">\(X_t\)</span> to represent the intercept. This leads to the following process formulation: <span class="math display">\[\begin{align*}
     y_t = c_{s_t} + \phi_{1,s_t}Y_{t-1}+...+\phi_{m,s_t}Y_{t-m} + U_t; \quad \text{where} \quad U_{t} \overset{}{\sim} N(0,\sigma_{s_t}^2),
 \end{align*}\]</span> we could alternatively write: <span class="math display">\[\begin{align*}
@@ -689,6 +773,9 @@ X_t =
 &amp;\arg\min_{\beta_j} \sum_{t = m+1}^{T}\left(\cfrac{y_t}{\sigma_j}\sqrt{P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)} - \cfrac{x_t'}{\sigma_j}\sqrt{P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)}\beta_j\right)^2 \quad s.t.
 \\&amp;\sigma_j = \sqrt{\cfrac{\sum_{t = m+1}^{T}(y_t - x_t'\beta_j)^2P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)}{\sum_{t = m+1}^{T}P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)}}.
 \end{align*}\]</span></p>
+</section>
+<section id="example-4-arbitrary-subset-switching-of-cphi-and-non-switching-sigma2" class="level3">
+<h3 class="anchored" data-anchor-id="example-4-arbitrary-subset-switching-of-cphi-and-non-switching-sigma2">Example 4: Arbitrary Subset-Switching of <span class="math inline">\((c,\phi)\)</span> and Non-Switching <span class="math inline">\(\sigma^2\)</span></h3>
 <p>The three previous examples are essentially special cases of the two model formulations that follow. Therefore, the next two examples represent the most general forms of Markov-Switching AR(m) models that will appear in this paper. The model class introduced next assumes that <span class="math inline">\(\sigma^2\)</span> does not switch, and that an arbitrary subset of <span class="math inline">\(\beta\)</span> is allowed to switch. Accordingly, we divide the parameter vector <span class="math inline">\(\beta\)</span> into the switching components, denoted by <span class="math inline">\(\beta^S\)</span>, and the non-switching components, denoted by <span class="math inline">\(\beta^F\)</span>. The underlying process is therefore formulated as follows: <span class="math display">\[\begin{align*}
     Y_t = (X_t^F)'\beta^F + (X_t^S)'\beta_{s_t}^S +U_t; \quad \text{where} \quad U_{t} \overset{i.i.d.}{\sim} N(0,\sigma^2) \quad \text{and} \quad X_t =
 \begin{pmatrix}
@@ -729,6 +816,9 @@ X_t =
 \displaystyle
 \sigma^2 = \cfrac{1}{(T-M)}\sum_{t = m+1}^T\sum_{j = 1}^{N}(y_t - x_t'\beta_j)^2 P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T).
 \end{align*}\]</span> and thus obtain our new <span class="math inline">\(\alpha\)</span> vector for the next iteration.</p>
+</section>
+<section id="example-5-arbitrary-subset-switching-of-cphi-and-switching-sigma2" class="level3">
+<h3 class="anchored" data-anchor-id="example-5-arbitrary-subset-switching-of-cphi-and-switching-sigma2">Example 5: Arbitrary Subset-Switching of <span class="math inline">\((c,\phi)\)</span> and Switching <span class="math inline">\(\sigma^2\)</span></h3>
 <p>With Example 5, we complete the generalization of the application of the EM algorithm to underlying AR(m) models, as Example 4 and Example 5 together allow for selecting any arbitrary subset of parameters in an AR(m) context for switching. In this final example, we assume the following underlying process: <span class="math display">\[\begin{align*}
     Y_t = (X_t^F)'\beta^F + (X_t^S)'\beta_{s_t}^S +U_t; \quad \text{where} \quad U_{t} \overset{}{\sim} N(0,\sigma_{s_t}^2) \quad \text{and} \quad X_t =
 \begin{pmatrix}
@@ -778,6 +868,10 @@ X_t =
 &amp;\beta^F = \left(\sum_{t = m+1}^{T}x_t^F(x_t^F)'\sum_{j = 1}^{N}\cfrac{P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)}{\sigma_j^2}\right)^{-1}\left(\sum_{t = m+1}^{T}\sum_{j = 1}^{N}(y_t - (x_t^S)'\beta_j^S)x_t^F\cfrac{P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)}{\sigma_j^2}\right) \\
 &amp;\sigma_j = \sqrt{\cfrac{\sum_{t = m+1}^{T}(y_t - (x_t^S)'\beta_j^S - (x_t^F)'\beta^F)^2 P_{\lambda_l}(S_t = j|\mathcal{Y}_T = \vec{y}_T)}{\sum_{t = m+1}^{T} P_{\lambda_l}(s_t = j|\mathcal{Y}_T = \vec{y}_T)}}.
 \end{align*}\]</span></p>
+</section>
+</section>
+<section id="forecasting-with-markov-switching-models" class="level2">
+<h2 class="anchored" data-anchor-id="forecasting-with-markov-switching-models">Forecasting with Markov-Switching Models</h2>
 <p>Next, we would like to turn to the topic of forecasts using Markov-Switching models. We recall that the conditional density is given by <span class="math inline">\(f_{Y_t|S_t,\mathcal{Y}_{t-1}; \alpha}(y_t|j,\vec{y}_{t-1})\)</span>. If we now have <span class="math inline">\(\vec{y}_t\)</span> and <span class="math inline">\(s_{t+1}\)</span>, we could, for a simple AR(1) model, state: <span class="math display">\[\begin{align*}
 Y_{t+1} = c_{s_{t+1}} + \phi_{s_{t+1}}Y_t + U_{t+1},
 \end{align*}\]</span> where we have <span class="math inline">\(E_{\alpha}(Y_{t+1}|S_{t+1} = j, \mathcal{Y}_t = \vec{y}_t) = c_j + \phi_j y_t\)</span>. Furthermore, we can show the following for an m-step ahead forecast: <span class="math display">\[\begin{align*}
@@ -791,6 +885,9 @@ E_{\theta}(Y_{t+m}|\mathcal{Y}_t = \vec{y}_t)
 \\ &amp;= \sum_{j = 1}^{N}P_{\theta}(S_{t+m} = j|\mathcal{Y}_t = \vec{y}_t)
 E_{\alpha}(Y_{t+m}|S_{t+m} = j,\mathcal{Y}_t = \vec{y}_t).
 \end{align*}\]</span> One could thus say that the forecasts for <span class="math inline">\(y_{t+m}\)</span> correspond to a weighted average of the expected values given the regime, with the regime probabilities as the weights. To summarize this notation, we can say that we collect the <span class="math inline">\(E_{\alpha}(Y_{t+m}|S_{t+m} = j, \mathcal{Y}_t = \vec{y}_t)\)</span> in <span class="math inline">\(\mathbf{h_t'}\)</span>, so that we can write <span class="math inline">\(E_{\theta}(Y_{t+m}|\mathcal{Y}_t = \vec{y}_t) = \mathbf{h_t'} \hat{\zeta}_{t+m|t}\)</span>, this derivation closely followed Hamilton (1994, page 694-695).</p>
+</section>
+<section id="regime-forecasting-with-markov-switching-models" class="level2">
+<h2 class="anchored" data-anchor-id="regime-forecasting-with-markov-switching-models">Regime Forecasting with Markov-Switching Models</h2>
 <p>The probability that the Markov-Chain will be in a particular state in the future can be considered as <span class="math inline">\(E_{\theta}(\zeta_{t+m}|\mathcal{Y}_t = \vec{y}_t)\)</span>. Based on (14), this is given by: <span class="math display">\[\begin{equation}
 E_{\theta}(\zeta_{t+m}|\mathcal{Y}_t = \vec{y}_t) = (\Pi')^mE_{\theta}(\zeta_t|\mathcal{Y}_t = \vec{y}_t),
 \end{equation}\]</span> or alternatively: <span class="math display">\[\begin{equation}
@@ -798,6 +895,8 @@ E_{\theta}(\zeta_{t+m}|\mathcal{Y}_t = \vec{y}_t) = (\Pi')^mE_{\theta}(\zeta_t|\
 \end{equation}\]</span></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -7,5 +7,40 @@ The idea behind MacroShift is relatively easy. We know that we can predict reces
 
 Obviously this investment strategy can be paired with other strategies, that decide which financial products to buy for a specific country, but we will start by just buying index-funds that refelct the overall economy of each country, like the S&P 500 for the US or the MDax for Germany. Then each country will be given a weight, that is inverse to their recession probability.
 
-To be a bit more precise if we have $N$ countries, then the country weight of country i will be calculated as: $$ \begin{align} w_i = \frac{1-P(R_i)}{\sum_{k=1}^{N}(1-P(R_k))} \end{align}
-$$ Where $P(R_k)$ is the recession probability of country k for the next time period, and thus $(1-P(R_k))$ is the predicted probability that there will be no recession in country k during the next time period.
+To be a bit more precise if we have $N$ countries, then the country weight of country i will be calculated as: 
+$$ 
+\begin{align} 
+w_i = \frac{1-P(R_i)}{\sum_{k=1}^{N}(1-P(R_k))} 
+\end{align}
+$$ 
+Where $P(R_k)$ is the recession probability of country k for the next time period, and thus $(1-P(R_k))$ is the predicted probability that there will be no recession in country k during the next time period.As one can easiliy observe, $w_i$ decreases in $P(R_i)$, i.e. the country weight decreases in its recession probability.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

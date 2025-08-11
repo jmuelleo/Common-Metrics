@@ -14,6 +14,10 @@ website:
         contents:
           - text: "MacroShift - Underlying Theory"
             href: MacroShift_Theory.qmd
+      - section: "Blog Posts"   
+        contents:
+          - text: "Markov-Switching Models"
+            href: Markov_Switching_Models.qmd     
   #    - section: "Blog Posts"
   #      contents: 
   #        - text: "Regularisation Methods"   
