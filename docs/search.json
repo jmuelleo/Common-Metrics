@@ -108,32 +108,6 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Common Metrics",
-    "section": "",
-    "text": "Welcome to Common Metrics – a platform dedicated to sharing my current projects, ideas, and tools in a transparent and accessible way.\nMy name is Julian Müller. Through Common Metrics, I aim to document and share my work across various areas of applied statistics and economics. This includes:\n\nA transparent overview of my portfolio and the trading strategies it implements.\nBlog posts on statistical topics such as Markov Switching Models or the development and documentation of my own R package, MSARM, for estimating such models.\nReplication attempts of interesting academic papers, where I assess the robustness and reproducibility of published results.\n\nNo matter what you background is you’re welcome to give feedback regarding the blog posts or the website in general. You can find more about me in the “About Me” section."
-  },
-  {
-    "objectID": "AboutMe.html",
-    "href": "AboutMe.html",
-    "title": "About Me",
-    "section": "",
-    "text": "Hello, my name is Julian Müller, I am 20 years old. I was born on the 21.08.2004 in California, but lived since my third birthday in Germany. I love to do sports, if possible I try to train four to five times a week. Furthermore I enjoy reading classics like Dostojewski or Homer. I studied economics at the University of Mannheim with a focus on econometrics and statistics. My elective courses included Analysis B, Analysis C, Applied Multivariate Statistics, Markov Chains, Resampling Methods, Time Series and Forecasting, Statistical Learning Methods.\nFurthermore I wrote a Seminar Paper in Applied Econometrics about Predictions with Many Regressors and Big Data. The Seminar Paper compares various prediction models within a big data context. The challenge of having too much data to achieve good predictions is a relatively modern problem, and several approaches have been developed to address it. The Paper compared some of these approaches, including shrinkage estimators, which received particular attention and a principal components based OLS Regression.\nMy Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” addresses two main objectives. First, it presents a systematic overview of the theory behind Markov-Switching models, focusing on applying the Expectation-Maximization (EM) algorithm to a broad class of Markov-Switching Autoregressive (AR) processes. Second, the thesis introduces MSARM, a new R package for estimating such models. Results from approximately 300 simulations show that MSARM’s estimation algorithm is more robust than MSwM’s, especially in more generalized settings where MSwM often fails. MSARM can be installed with the command: devtools::install github(”jmuelleo/MSARM”).\nThe University of Mannheim is in the QS Ranking 2024 rank 2 in Economics & Econometrics and could even say:\n“In this category, the University of Mannheim was evaluated in seven different areas. It was particularly successful in the area Accounting & Finance, where it ranked first in Germany. In Business & Management Studies and Economics & Econometrics it ranked second. Overall, Mannheim is hence the best-ranked German university in business and economics.”\nSee: https://www.uni-mannheim.de/en/newsroom/presse/pressemitteilungen/2024/april/qs-ranking-1/\nYou can reach me via common.metrics.contact@gmail.com\nMy CV can be downloaded via the following link:\n 📄 Download CV \nYou can find my Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” here:\n 📄 Download Bachelor Thesis  \nYou can find my Seminar Paper “Predictions with Many Regressors and Big Data” here:\n 📄 Download Seminar Paper"
-  },
-  {
-    "objectID": "MacroShift_Theory.html",
-    "href": "MacroShift_Theory.html",
-    "title": "Anticipating Recessions. Allocating with Precision",
-    "section": "",
-    "text": "The idea behind MacroShift is relatively easy. We know that we can predict recession probabilities utilizing Markov-Switching Models, their theory is described in the blogpost “Markov-Switching Models”, the question I now want to answer is whether these predicted recession probabilities allow us to make better investment decisions. Therefore, we will estimate a Markov-Switching Model, with two underlying Regimes (recession, not-recession), then we will utilize the EM-Algorithm, Hamilton Filter and Kim-Filter to estimate smoothed regime probabilities for the past, based on several different variables (GDP, interest rate,…) from there we can predict the recession probability of the next time period (generally speaking quarter, as most macroeconomic data is quarterly data) and based on the recession probability predicted for each country we give different stocks and bonds in our portfolio different weights.\nObviously this investment strategy can be paired with other strategies, that decide which financial products to buy for a specific country, but we will start by just buying index-funds that refelct the overall economy of each country, like the S&P 500 for the US or the MDax for Germany. Then each country will be given a weight, that is inverse to their recession probability.\nTo be a bit more precise if we have \\(N\\) countries, then the country weight of country i will be calculated as: \\[\n\\begin{align}\nw_i = \\frac{1-P(R_i)}{\\sum_{k=1}^{N}(1-P(R_k))}\n\\end{align}\n\\] Where \\(P(R_k)\\) is the recession probability of country k for the next time period, and thus \\((1-P(R_k))\\) is the predicted probability that there will be no recession in country k during the next time period.As one can easiliy observe, \\(w_i\\) decreases in \\(P(R_i)\\), i.e. the country weight decreases in its recession probability.",
-    "crumbs": [
-      "Start",
-      "MacroShift",
-      "MacroShift - Underlying Theory"
-    ]
-  },
-  {
     "objectID": "Markov_Switching_Models.html#optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood-1",
     "href": "Markov_Switching_Models.html#optimal-inference-of-the-regimes-and-derivation-of-the-log-likelihood-1",
     "title": "Markov-Switching-Models",
@@ -167,6 +141,32 @@
       "Start",
       "Blog Posts",
       "Markov-Switching Models"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Common Metrics",
+    "section": "",
+    "text": "Welcome to Common Metrics – a platform dedicated to sharing my current projects, ideas, and tools in a transparent and accessible way.\nMy name is Julian Müller. Through Common Metrics, I aim to document and share my work across various areas of applied statistics and economics. This includes:\n\nA transparent overview of my portfolio and the trading strategies it implements.\nBlog posts on statistical topics such as Markov Switching Models or the development and documentation of my own R package, MSARM, for estimating such models.\nReplication attempts of interesting academic papers, where I assess the robustness and reproducibility of published results.\n\nNo matter what you background is you’re welcome to give feedback regarding the blog posts or the website in general. You can find more about me in the “About Me” section."
+  },
+  {
+    "objectID": "AboutMe.html",
+    "href": "AboutMe.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Hello, my name is Julian Müller, I am 20 years old. I was born on the 21.08.2004 in California, but lived since my third birthday in Germany. I love to do sports, if possible I try to train four to five times a week. Furthermore I enjoy reading classics like Dostojewski or Homer. I studied economics at the University of Mannheim with a focus on econometrics and statistics. My elective courses included Analysis B, Analysis C, Applied Multivariate Statistics, Markov Chains, Resampling Methods, Time Series and Forecasting, Statistical Learning Methods.\nFurthermore I wrote a Seminar Paper in Applied Econometrics about Predictions with Many Regressors and Big Data. The Seminar Paper compares various prediction models within a big data context. The challenge of having too much data to achieve good predictions is a relatively modern problem, and several approaches have been developed to address it. The Paper compared some of these approaches, including shrinkage estimators, which received particular attention and a principal components based OLS Regression.\nMy Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” addresses two main objectives. First, it presents a systematic overview of the theory behind Markov-Switching models, focusing on applying the Expectation-Maximization (EM) algorithm to a broad class of Markov-Switching Autoregressive (AR) processes. Second, the thesis introduces MSARM, a new R package for estimating such models. Results from approximately 300 simulations show that MSARM’s estimation algorithm is more robust than MSwM’s, especially in more generalized settings where MSwM often fails. MSARM can be installed with the command: devtools::install github(”jmuelleo/MSARM”).\nThe University of Mannheim is in the QS Ranking 2024 rank 2 in Economics & Econometrics and could even say:\n“In this category, the University of Mannheim was evaluated in seven different areas. It was particularly successful in the area Accounting & Finance, where it ranked first in Germany. In Business & Management Studies and Economics & Econometrics it ranked second. Overall, Mannheim is hence the best-ranked German university in business and economics.”\nSee: https://www.uni-mannheim.de/en/newsroom/presse/pressemitteilungen/2024/april/qs-ranking-1/\nYou can reach me via common.metrics.contact@gmail.com\nMy CV can be downloaded via the following link:\n 📄 Download CV \nYou can find my Bachelor Thesis “From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models” here:\n 📄 Download Bachelor Thesis  \nYou can find my Seminar Paper “Predictions with Many Regressors and Big Data” here:\n 📄 Download Seminar Paper"
+  },
+  {
+    "objectID": "MacroShift_Theory.html",
+    "href": "MacroShift_Theory.html",
+    "title": "Anticipating Recessions. Allocating with Precision",
+    "section": "",
+    "text": "The idea behind MacroShift is relatively easy. We know that we can predict recession probabilities utilizing Markov-Switching Models, their theory is described in the blogpost “Markov-Switching Models”, the question I now want to answer is whether these predicted recession probabilities allow us to make better investment decisions. Therefore, we will estimate a Markov-Switching Model, with two underlying Regimes (recession, not-recession), then we will utilize the EM-Algorithm, Hamilton Filter and Kim-Filter to estimate smoothed regime probabilities for the past, based on several different variables (GDP, interest rate,…) from there we can predict the recession probability of the next time period (generally speaking quarter, as most macroeconomic data is quarterly data) and based on the recession probability predicted for each country we give different stocks and bonds in our portfolio different weights.\nObviously this investment strategy can be paired with other strategies, that decide which financial products to buy for a specific country, but we will start by just buying index-funds that refelct the overall economy of each country, like the S&P 500 for the US or the MDax for Germany. Then each country will be given a weight, that is inverse to their recession probability.\nTo be a bit more precise if we have \\(N\\) countries, then the country weight of country i will be calculated as: \\[\n\\begin{align}\nw_i = \\frac{1-P(R_i)}{\\sum_{k=1}^{N}(1-P(R_k))}\n\\end{align}\n\\] Where \\(P(R_k)\\) is the recession probability of country k for the next time period, and thus \\((1-P(R_k))\\) is the predicted probability that there will be no recession in country k during the next time period.As one can easiliy observe, \\(w_i\\) decreases in \\(P(R_i)\\), i.e. the country weight decreases in its recession probability.",
+    "crumbs": [
+      "Start",
+      "MacroShift",
+      "MacroShift - Underlying Theory"
     ]
   }
 ]
