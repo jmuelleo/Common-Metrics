@@ -16,9 +16,42 @@ $$
 Where $P(R_k)$ is the recession probability of country k for the next time period, and thus $(1-P(R_k))$ is the predicted probability that there will be no recession in country k during the next time period.As one can easiliy observe, $w_i$ decreases in $P(R_i)$, i.e. the country weight decreases in its recession probability.
 
 
-
-
-
+# The Markov-Switching Model
+The Markov-Switching Model I will implement for each country, will have the following form:
+$$
+\begin{align*}
+    Y_t = c_{s_t} + \mathcal{X}_t^T\beta_{s_t} + U_t; \quad \text{where} \quad U_{t} \overset{}{\sim} N(0,\sigma_{s_t}^2), \quad \mathcal{X}_t = 
+\begin{pmatrix}
+    \vec{X}_{1}
+    \\\vec{X}_{2}
+    \\...
+    \\\vec{X}_{p}
+\end{pmatrix}, 
+\vec{X}_{i} = 
+\begin{pmatrix}
+    X_{i,t-1}
+    \\X_{i,t-2}
+    \\...
+    \\X_{i,t-m}
+\end{pmatrix},
+\beta_{s_t} = 
+\begin{pmatrix}
+    \vec{\beta}_{1,s_t}
+    \\\vec{\beta}_{2,s_t}
+    \\...
+    \\\vec{\beta}_{p,s_t}
+\end{pmatrix}
+\quad \text{and} \quad 
+\beta_{i,s_t} = 
+\begin{pmatrix}
+    \vec{\beta}_{i,t-1,s_t}
+    \\\vec{\beta}_{i,t-2,s_t}
+    \\...
+    \\\vec{\beta}_{i,t-m,s_t}
+\end{pmatrix}.
+\end{align*}
+$$
+As you can see it is basically an ADL-Model, which allows for switching in all parameters. Therefore, lags of Y, as well as lags of other variables, i.e. $\vec{X}_{1},...,\vec{X}_{p}$ influence the next realization of Y. Thereby it should be noted that the way each variable influences the next realization of Y, depends on an underlying Markov Chain. 
 
 
 

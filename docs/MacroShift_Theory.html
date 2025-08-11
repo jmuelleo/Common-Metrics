@@ -190,8 +190,14 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-markov-switching-model" id="toc-the-markov-switching-model" class="nav-link active" data-scroll-target="#the-markov-switching-model">The Markov-Switching Model</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -222,8 +228,44 @@ window.Quarto = {
 w_i = \frac{1-P(R_i)}{\sum_{k=1}^{N}(1-P(R_k))}
 \end{align}
 \]</span> Where <span class="math inline">\(P(R_k)\)</span> is the recession probability of country k for the next time period, and thus <span class="math inline">\((1-P(R_k))\)</span> is the predicted probability that there will be no recession in country k during the next time period.As one can easiliy observe, <span class="math inline">\(w_i\)</span> decreases in <span class="math inline">\(P(R_i)\)</span>, i.e.&nbsp;the country weight decreases in its recession probability.</p>
+<section id="the-markov-switching-model" class="level1">
+<h1>The Markov-Switching Model</h1>
+<p>The Markov-Switching Model I will implement for each country, will have the following form: <span class="math display">\[
+\begin{align*}
+    Y_t = c_{s_t} + \mathcal{X}_t^T\beta_{s_t} + U_t; \quad \text{where} \quad U_{t} \overset{}{\sim} N(0,\sigma_{s_t}^2), \quad \mathcal{X}_t =
+\begin{pmatrix}
+    \vec{X}_{1}
+    \\\vec{X}_{2}
+    \\...
+    \\\vec{X}_{p}
+\end{pmatrix},
+\vec{X}_{i} =
+\begin{pmatrix}
+    X_{i,t-1}
+    \\X_{i,t-2}
+    \\...
+    \\X_{i,t-m}
+\end{pmatrix},
+\beta_{s_t} =
+\begin{pmatrix}
+    \vec{\beta}_{1,s_t}
+    \\\vec{\beta}_{2,s_t}
+    \\...
+    \\\vec{\beta}_{p,s_t}
+\end{pmatrix}
+\quad \text{and} \quad
+\beta_{i,s_t} =
+\begin{pmatrix}
+    \vec{\beta}_{i,t-1,s_t}
+    \\\vec{\beta}_{i,t-2,s_t}
+    \\...
+    \\\vec{\beta}_{i,t-m,s_t}
+\end{pmatrix}.
+\end{align*}
+\]</span> As you can see it is basically an ADL-Model, which allows for switching in all parameters. Therefore, lags of Y, as well as lags of other variables, i.e.&nbsp;<span class="math inline">\(\vec{X}_{1},...,\vec{X}_{p}\)</span> influence the next realization of Y. Thereby it should be noted that the way each variable influences the next realization of Y, depends on an underlying Markov Chain.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
