@@ -37,8 +37,8 @@ website:
         href: index.qmd              
       - text: "About Me" 
         href: AboutMe.qmd
-  #   - text: "Recent Posts"
-  #      href: index.qmd
+     - text: "GitHub"
+        href: https://github.com/jmuelleo
        
 format:
   html:
