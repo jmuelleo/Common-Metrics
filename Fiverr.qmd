@@ -1,0 +1,76 @@
+---
+title: "Statistical Consulting - Statistical Modeling, Machine Learning and Data Science in R & Python"
+editor: visual
+---
+
+# What I Do:
+
+I help clients turn financial and business data into defensible, model-backed decisions. My core strength is time-series analysis and risk forecasting: ARIMA, VAR/VECM with cointegration, state-space/Hamilton–Kim filtering, and Markov-Switching AR models—including a custom R package (MSARM) I developed for regime inference and forecasting. On the volatility side I work with ARCH/GARCH families (GARCH, EGARCH, GJR), MS-GARCH, realized-volatility inputs, and VaR/ES forecasting with formal back-testing (Kupiec/Christoffersen).
+
+Beyond time series, I cover multivariate statistics (PCA, Factor Analysis, Clustering) and a broad ML toolkit: k-NN, LDA/QDA, logistic regression, local polynomial regression, regression splines, SVMs, tree-based methods (random forests), and neural networks. For empirical economics/finance I implement IV/2SLS, difference-in-differences, fixed/random effects for panels, and regression discontinuity—with careful identification checks and robust inference.
+
+# My Services:
+
+## 1) Analyze & Forecast Time-Series Data (R or Python)
+
+Do you need accurate, statistically sound forecasts for your data?
+
+With this gig, I'll build robust time series models tailored to your dataset using proven statistical and econometric techniques (ARIMA, VAR, VECM,...) to uncover time-based patterns, trends, and actionable predictions.
+
+Whether you're analyzing financial markets, business KPIs, economic indicators, or research data, this service gives you the clarity and confidence to plan ahead based on data-driven insights.
+
+I provide: - Time series modeling (ARIMA, VAR, VECM, exponential smoothing, seasonal models, ...) - Markov Switching Models for regime-dependent dynamics (custom R package: MSARM, which I developed) - Forecast visualization with confidence intervals - Residual diagnostics and forecast accuracy metrics (RMSE, AIC/BIC, Ljung-Box,...) - A consulting-level PowerPoint report that summarizes the results
+
+All services are available in both English and German.
+
+```{=html}
+<!-- Video mit Thumbnail (poster) -->
+<video controls width="100%" preload="metadata"
+       poster="images/Time Series Preview.png">
+  <source src="images/Fiverr_TimeSeries_Gig_Vid.mp4" type="video/mp4">
+  <!-- Fallback: statisches Thumbnail, wenn <video> nicht unterstützt wird -->
+  <img src="images/Time Series Preview.png" alt="Time Series Gig preview">
+</video>
+```
+
+## 2) Train and Validate Machine Learning Models (R or Python)
+
+Want accurate, well-explained models for your cross-sectional data?
+
+Whether you're working on a research project, business analysis, or data-driven decision-making task, I provide professional support in building, tuning, and interpreting statistical or machine learning models tailored to your dataset. My goal is not just to deliver accurate results, but to make the modeling process transparent and understandable. I use R or Python to develop clean, reproducible code and provide clear explanations, visualizations, and evaluation metrics so you know exactly what your model is doing and why it matters.
+
+Whether you need help choosing the right method, understanding results, or delivering a polished final report, I'm here to help in both English and German.
+
+I provide: - Predictive Modeling (Ridge Regression, LASSO, Regression Splines, Local Polynomial Regression,...) - Classification (Logistic Regression, knn, LDA, QDA, SVM, Random Forest,...) - Neural Networks - Model tuning (cross-validation, grid/random search, bootstrap,...) - Evaluation metrics (RMSE,...) - Clear visualizations of results - Clean, commented code in R or Python - A consulting-level PowerPoint report
+
+```{=html}
+<!-- Video mit Thumbnail (poster) -->
+<video controls width="100%" preload="metadata"
+       poster="images/Machine Learning Preview.png">
+  <source src="images/Fiverr_MachineLearning_Gig_Vid_Final_gespeichert.mp4" type="video/mp4">
+  <!-- Fallback: statisches Thumbnail, wenn <video> nicht unterstützt wird -->
+  <img src="images/Machine Learning Preview.png" alt="Time Series Gig preview">
+</video>
+```
+
+## 3) Analyze and Visualize your Dataset (R or Python)
+
+Do you have a dataset and want to truly understand whats going on beneath the surface?
+
+With this gig, I'll perform a comprehensive exploratory data analysis (EDA) combined with descriptive statistics and statistical modeling to uncover patterns, trends, and actionable insights.
+
+Whether you're working with business data, are doing research, or are just curious about your dataset, this service gives you everything you need to make informed decisions or move to the next stage of analysis.
+
+I provide: - Data cleaning and transformation - Descriptive statistics - Visualizations: histograms, boxplots, correlation heatmaps, scatter plots,... - Outlier and trend detection (Mahalanobis distance,...) - Statistical Modeling (e.g. linear or logistic regression, LASSO, PCA, Factor Analysis, Neural Networks,...) - Evaluation metrics (R², MSE,...) - A consulting-level PowerPoint report that summarizes the results
+
+All services are available in both English and German.
+
+```{=html}
+<!-- Video mit Thumbnail (poster) -->
+<video controls width="100%" preload="metadata"
+       poster="images/EDA_Preview.png">
+  <source src="images/Fiverr_EDA_StatModel_Gig_Vid_Final.mp4" type="video/mp4">
+  <!-- Fallback: statisches Thumbnail, wenn <video> nicht unterstützt wird -->
+  <img src="images/EDA_Preview.png" alt="Time Series Gig preview">
+</video>
+```

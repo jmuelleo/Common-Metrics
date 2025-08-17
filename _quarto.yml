@@ -37,8 +37,22 @@ website:
         href: index.qmd              
       - text: "About Me" 
         href: AboutMe.qmd
-     - text: "GitHub"
-        href: https://github.com/jmuelleo
+      - text: "Fiverr" 
+        href: Fiverr.qmd  
+    right:
+      - icon: github
+        href: "https://github.com/jmuelleo"
+        target: _blank
+        aria-label: "GitHub"
+      - icon: linkedin
+        href: "https://www.linkedin.com/in/julian-m%C3%BCller-6b9974250/"
+        target: _blank
+        aria-label: "LinkedIn"  
+      - icon: instagram
+        href: "https://www.instagram.com/julianmueller6416/"
+        target: _blank
+        aria-label: "Instagram"  
+        
        
 format:
   html:
