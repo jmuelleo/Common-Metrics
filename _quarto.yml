@@ -18,10 +18,11 @@ website:
         contents:
           - text: "Markov-Switching Models"
             href: Markov_Switching_Models.qmd     
-  #    - section: "Blog Posts"
-  #      contents: 
-  #        - text: "Regularisation Methods"   
-  #          href: index.qmd
+      - section: "Selected Fiverr Projects"
+        contents: 
+          - text: "GARCH vs MSARCH"   
+            href: index.qmd
+            
   #    - section: "Replication Projects"
   #      contents: 
   #        - text: "History's Masters 2025" 
@@ -37,7 +38,7 @@ website:
         href: index.qmd              
       - text: "About Me" 
         href: AboutMe.qmd
-      - text: "Fiverr" 
+      - text: "Services (Fiverr)" 
         href: Fiverr.qmd  
     right:
       - icon: github

@@ -2,16 +2,11 @@
 title: "Statistical Consulting - Statistical Modeling, Machine Learning and Data Science in R & Python"
 editor: visual
 ---
-
-# What I Do:
-
 I help clients turn financial and business data into defensible, model-backed decisions. My core strength is time-series analysis and risk forecasting: ARIMA, VAR/VECM with cointegration, state-space/Hamilton–Kim filtering, and Markov-Switching AR models—including a custom R package (MSARM) I developed for regime inference and forecasting. On the volatility side I work with ARCH/GARCH families (GARCH, EGARCH, GJR), MS-GARCH, realized-volatility inputs, and VaR/ES forecasting with formal back-testing (Kupiec/Christoffersen).
 
 Beyond time series, I cover multivariate statistics (PCA, Factor Analysis, Clustering) and a broad ML toolkit: k-NN, LDA/QDA, logistic regression, local polynomial regression, regression splines, SVMs, tree-based methods (random forests), and neural networks. For empirical economics/finance I implement IV/2SLS, difference-in-differences, fixed/random effects for panels, and regression discontinuity—with careful identification checks and robust inference.
 
-# My Services:
-
-## 1) Analyze & Forecast Time-Series Data (R or Python)
+## Analyze & Forecast Time-Series Data (R or Python)
 
 Do you need accurate, statistically sound forecasts for your data?
 
@@ -33,7 +28,15 @@ All services are available in both English and German.
 </video>
 ```
 
-## 2) Train and Validate Machine Learning Models (R or Python)
+
+<br>
+
+If you are interested, the following button will bring you to my fiverr gig.
+
+<a href="https://www.fiverr.com/common_metrics/analyze-and-forecast-your-time-series-using-r-or-python"> <button> Time Series Analysis </button> </a>
+
+
+## Train and Validate Machine Learning Models (R or Python)
 
 Want accurate, well-explained models for your cross-sectional data?
 
@@ -53,7 +56,14 @@ I provide: - Predictive Modeling (Ridge Regression, LASSO, Regression Splines, L
 </video>
 ```
 
-## 3) Analyze and Visualize your Dataset (R or Python)
+
+<br>
+
+If you are interested, the following button will bring you to my fiverr gig.
+
+<a href= "https://www.fiverr.com/common_metrics/build-machine-learning-and-statistical-models-using-r-or-python"> <button> Machine Learning </button> </a>
+
+## Analyze and Visualize your Dataset (R or Python)
 
 Do you have a dataset and want to truly understand whats going on beneath the surface?
 
@@ -74,3 +84,11 @@ All services are available in both English and German.
   <img src="images/EDA_Preview.png" alt="Time Series Gig preview">
 </video>
 ```
+
+
+<br>
+
+If you are interested, the following button will bring you to my fiverr gig.
+
+<a href="https://www.fiverr.com/common_metrics/analyze-and-visualize-your-dataset"> <button> Data Exploration </button> </a>
+
