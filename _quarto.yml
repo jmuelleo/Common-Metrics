@@ -10,18 +10,18 @@ website:
     pinned: false
     contents:
       - text: "<strong>Post Navigator</strong>"
-      - section: "MacroShift"   
-        contents:
-          - text: "MacroShift - Underlying Theory"
-            href: MacroShift_Theory.qmd
+    # - section: "MacroShift"   
+    #    contents:
+    #      - text: "MacroShift - Underlying Theory"
+    #        href: MacroShift_Theory.qmd
       - section: "Blog Posts"   
         contents:
           - text: "Markov-Switching Models"
             href: Markov_Switching_Models.qmd     
-      - section: "Selected Fiverr Projects"
-        contents: 
-          - text: "GARCH vs MSARCH"   
-            href: index.qmd
+    #  - section: "Selected Fiverr Projects"
+    #    contents: 
+    #      - text: "GARCH vs MSARCH"   
+    #        href: index.qmd
             
   #    - section: "Replication Projects"
   #      contents: 
@@ -29,8 +29,14 @@ website:
   #          href: index.qmd
   #        - text: "Card and Krueger 1994"
   #          href: index.qmd
+      - section: "My time at Oxford"
+        contents: 
+          - text: "My time at Oxford" 
+            href: My_Oxford_Time.qmd
+#         - text: "Card and Krueger 1994"
+#           href: index.qmd
   navbar:
-    logo: "images/Logo2.png"  # Logo in der Navbar
+   # logo: "images/Logo2.png"  # Logo in der Navbar
     background: primary
     search: true
     left:
@@ -38,8 +44,10 @@ website:
         href: index.qmd              
       - text: "About Me" 
         href: AboutMe.qmd
-      - text: "Services (Fiverr)" 
-        href: Fiverr.qmd  
+  #   - text: "Services (Fiverr)" 
+  #      href: Fiverr.qmd  
+      - text: "My Time in Oxford" 
+        href: My_Oxford_Time.qmd
     right:
       - icon: github
         href: "https://github.com/jmuelleo"
@@ -53,6 +61,11 @@ website:
         href: "https://www.instagram.com/julianmueller6416/"
         target: _blank
         aria-label: "Instagram"  
+      - icon: youtube
+        href: "https://www.youtube.com/channel/UC-iICKVCNn7iEQicgRDTudw"
+        target: _blank
+        aria-label: "YouTube"          
+        
         
        
 format:

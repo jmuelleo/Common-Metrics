@@ -3,31 +3,32 @@ title: "About Me"
 ---
 ::: {.columns}
 ::: {.column width="70%"}
-Hello, my name is Julian Müller, I am 20 years old. I was born on the 21.08.2004 in California, but lived since my third birthday in Germany. I love to do sports, if possible I try to train four to five times a week. Furthermore I enjoy reading classics like Dostojewski or Homer. Currently I am pursueing a Msc. in Statistical Science at Oxford University, my current elective courses are Graphical Models and Algorithmic Foundations of Learning.
+Hello, my name is Julian Müller, I am 21 years old. I was born on the 21.08.2004 in California, but lived since my third birthday in Germany. I love to do sports, if possible I try to train four to five times a week. Furthermore I enjoy reading classics like Dostojewski or Homer. Currently I am pursueing a Msc. in Statistical Science at Oxford University, my current elective courses are Graphical Models and Bayesian Methods.
 
-Before that I studied economics at the University of Mannheim with a focus on econometrics and statistics. My elective courses included Analysis B, Analysis C, Applied Multivariate Statistics, Markov Chains, Resampling Methods, Time Series and Forecasting and Statistical Learning Methods. 
+# BSc. Economics University of Mannheim
+## Course Work
+Before that I studied economics at the University of Mannheim with a focus on econometrics and statistics. My elective courses included Analysis B, Analysis C, Applied Multivariate Statistics, Markov Chains, Resampling Methods, Time Series and Forecasting and Statistical Learning Methods. My economics coursework included Foundations of Economics, Microeconomics A, Microeconomics B, Macroeconomics A, Macroeconomics B, Public Finance, Economic Policy and Economic History. 
 
+## Seminar Paper
 Furthermore, I wrote a Seminar Paper in Applied Econometrics about "Predictions with Many Regressors and Big Data". The Seminar Paper compares various prediction models within a big data context. The challenge of having too much data to achieve good predictions is a relatively modern problem, and several approaches have been developed to address it. The paper compares some of these approaches, including shrinkage estimators, like Ridge Regression or LASSO which received particular attention, as well as a principal components based OLS Regression.
 
+## Bachelor Thesis
 My Bachelor Thesis "From Theory to Application: Developing MSARM, an R Package for Markov-Switching Autoregressive Models" addresses two main objectives. First, it presents a systematic overview of the theory behind Markov-Switching models, focusing on applying the Expectation-Maximization (EM) algorithm to a broad class of Markov-Switching Autoregressive (AR) processes. Second, the thesis introduces MSARM, a new R package for estimating such models. Results from approximately 300 simulations show that MSARM’s estimation algorithm is more robust than MSwM’s, especially in more generalized settings where MSwM often fails. MSARM can be installed with the command: devtools::install github(”jmuelleo/MSARM”).
 
-
-
-The Master of Science in Statistical Science at the University of Oxford is a twelve-month, full-time taught master’s programme running from October to September each academic year. It provides rigorous training in applied and computational statistics, statistical machine learning, and the theoretical foundations of statistical inference, with a strong emphasis on applying these methods to real-world problems. The programme combines compulsory core courses — such as Applied Statistics, Foundations of Statistical Inference, Statistical Programming, Computational Statistics, and Statistical Machine Learning — with a wide range of optional modules that include Advanced Simulation Methods, Graphical Models, Bayesian Methods and Algorithmic Foundations of Learning (the courses I intend to attend). The MSc in Statistical Science at the University of Oxford stands among the most prestigious graduate programmes in statistics worldwide. Consistently ranked first in the United Kingdom and within the global top ten for “Statistics and Operational Research” (QS World University Rankings), it is recognised for its academic rigour, innovative curriculum, and exceptional faculty. Within the landscape of all Master’s-level programmes in statistics internationally, Oxford’s MSc is widely regarded as one of the best.
-
-
-
-
+## University of Mannheim Ranking
 The University of Mannheim is in the QS Ranking 2024 rank 2 in Economics & Econometrics and one could even say:
 
 "The University of Mannheim was evaluated in seven different areas. It was particularly successful in the area Accounting & Finance, where it ranked first in Germany. In Business & Management Studies and Economics & Econometrics it ranked second. Overall, Mannheim is hence the best-ranked German university in business and economics."
 
 See: https://www.uni-mannheim.de/en/newsroom/presse/pressemitteilungen/2024/april/qs-ranking-1/
 
+# MSc. Statistical Science University of Oxford
+The Master of Science in Statistical Science at the University of Oxford is a twelve-month, full-time taught master’s programme running from October to September each academic year. It provides rigorous training in applied and computational statistics, statistical machine learning, and the theoretical foundations of statistical inference, with a strong emphasis on applying these methods to real-world problems. The programme combines compulsory core courses — such as Applied Statistics, Foundations of Statistical Inference, Statistical Programming, Computational Statistics, and Statistical Machine Learning — with a wide range of optional modules that include Advanced Simulation Methods, Graphical Models, Bayesian Methods and Advanced Topics in Statistical Machine Learning (the courses I intend to attend). The MSc in Statistical Science at the University of Oxford stands among the most prestigious graduate programmes in statistics worldwide. Consistently ranked first in the United Kingdom and within the global top ten for “Statistics and Operational Research” (QS World University Rankings), it is recognised for its academic rigour, innovative curriculum, and exceptional faculty. Within the landscape of all Master’s-level programmes in statistics internationally, Oxford’s MSc is widely regarded as one of the best.
 
+
+# Contact Details and Thesis
 
 You can reach me via common.metrics.contact@gmail.com
-
 
 My CV can be downloaded via the following link:
 
@@ -44,15 +45,18 @@ You can find my Seminar Paper "Predictions with Many Regressors and Big Data" he
 :::
 
 
+::: {.column width="5%"}
+:::
 
-
-::: {.column width="30%"}
+::: {.column width="25%"}
 <img src="images/clipboard-2299193233.jpeg" 
      alt="Bildbeschreibung" 
-     style="margin-top: 100px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); width: 100%;">
+     style="margin-top: 0px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); width: 100%;">
 
+<!--
 <img src="images\08_UM_SIGNET_EN_RGB-01.jpg"
      alt="Bildbeschreibung" 
      style="margin-top: 90px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); width: 100%;">
+-->
 :::
 :::
