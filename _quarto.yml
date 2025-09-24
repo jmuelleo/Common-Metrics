@@ -14,7 +14,7 @@ website:
     #    contents:
     #      - text: "MacroShift - Underlying Theory"
     #        href: MacroShift_Theory.qmd
-      - section: "Blog Posts"   
+      - section: "Theory Blog"   
         contents:
           - text: "Markov-Switching Models"
             href: Markov_Switching_Models.qmd     
@@ -29,9 +29,9 @@ website:
   #          href: index.qmd
   #        - text: "Card and Krueger 1994"
   #          href: index.qmd
-      - section: "My time at Oxford"
+      - section: "Oxford Blog"
         contents: 
-          - text: "My time at Oxford" 
+          - text: "My time at Oxford University" 
             href: My_Oxford_Time.qmd
 #         - text: "Card and Krueger 1994"
 #           href: index.qmd
@@ -46,8 +46,10 @@ website:
         href: AboutMe.qmd
   #   - text: "Services (Fiverr)" 
   #      href: Fiverr.qmd  
-      - text: "My Time in Oxford" 
+      - text: "Oxford Blog" 
         href: My_Oxford_Time.qmd
+      - text: "YouTube" 
+        href: YouTube.qmd
     right:
       - icon: github
         href: "https://github.com/jmuelleo"
